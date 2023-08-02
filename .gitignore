@@ -1,3 +1,2 @@
-build/classes/
-setting/database_production.xml
-setting/database.xml
+build
+setting
