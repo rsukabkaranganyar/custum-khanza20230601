@@ -175,6 +175,7 @@ import surat.SuratTidakHamil;
  * @author dosen
  */
 public final class DlgReg extends javax.swing.JDialog {
+    
     private final DefaultTableModel tabMode,tabMode2;
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
