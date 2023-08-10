@@ -1,8 +1,10 @@
-build/
-nbproject/
+build/*
+nbproject/*
 setting/database_production.xml
 setting/database.ini
 setting/database.xml
 setting/logo.jpg
 setting/modem.xml
 setting/wallpaper.jpg
+dist/*
+nbproject/private/private.xml
