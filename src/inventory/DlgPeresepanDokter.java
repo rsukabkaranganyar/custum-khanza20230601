@@ -1128,7 +1128,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     Sequel.meghapus("resep_dokter_racikan_detail","no_resep",NoResep.getText());
                     ubah=false;
                     simpandata();
-                }                                                      
+                }
                 
                 if(sukses==true){
                     if(RESEPRAJALKEPLAN.equals("yes")&&status.equals("ralan")&&(ubah==false)){
@@ -1142,7 +1142,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 if(rs2.next()){
                                     resep="Resep : \n";
                                     psresep=koneksi.prepareStatement(
-                                           "select databarang.nama_brng,resep_dokter.jml,resep_dokter.aturan_pakai from databarang inner join resep_dokter on databarang.kode_brng=resep_dokter.kode_brng where resep_dokter.no_resep=?");
+                                           "select databarang.nama_brng,resep_dokter.jml,resep_dokter.aturan_pakai from databarang inner join resep_dokter on databarang.kode_brng=resep_dokter.kode_brng where resep_dokter.no_resep=?");                                   
                                     try {
                                         psresep.setString(1,NoResep.getText());
                                         rsobat=psresep.executeQuery();

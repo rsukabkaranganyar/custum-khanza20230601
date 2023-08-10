@@ -1010,7 +1010,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                             KdDok2.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),0).toString());
                             TDokter2.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),1).toString());
                             KdDok2.requestFocus();
-                        }else if(TabRawat.getSelectedIndex()==8){
+                        }else if(TabRawat.getSelectedIndex()==7){
                             KdDok3.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),0).toString());
                             TDokter3.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),1).toString());
                             KdDok3.requestFocus();
