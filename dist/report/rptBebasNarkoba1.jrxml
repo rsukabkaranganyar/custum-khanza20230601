@@ -779,7 +779,7 @@
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="100" y="23" width="430" height="17" uuid="cb9cea3d-b453-4565-a3a2-379f597b2ecf"/>
+				<reportElement x="100" y="4" width="430" height="17" uuid="cb9cea3d-b453-4565-a3a2-379f597b2ecf"/>
 				<textElement textAlignment="Left">
 					<font fontName="Tahoma" size="14" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -787,7 +787,7 @@
 				<textFieldExpression><![CDATA[$P{namars}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="42" width="430" height="14" uuid="1a010c53-4d01-4a2a-96ca-1a3183aba950"/>
+				<reportElement x="100" y="23" width="430" height="14" uuid="1a010c53-4d01-4a2a-96ca-1a3183aba950"/>
 				<textElement textAlignment="Left">
 					<font fontName="Tahoma" size="10"/>
 					<paragraph lineSpacing="Single"/>
@@ -795,7 +795,7 @@
 				<textFieldExpression><![CDATA[$P{alamatrs}+", "+$P{kotars}+", "+$P{propinsirs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="58" width="430" height="14" uuid="3fadebdd-7a02-4fb1-852a-3860f018e358"/>
+				<reportElement x="100" y="39" width="430" height="14" uuid="3fadebdd-7a02-4fb1-852a-3860f018e358"/>
 				<textElement textAlignment="Left">
 					<font fontName="Tahoma" size="10"/>
 					<paragraph lineSpacing="Single"/>
@@ -803,7 +803,7 @@
 				<textFieldExpression><![CDATA[$P{kontakrs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="72" width="430" height="14" uuid="90d9ef3a-87ae-4512-8be4-3a0f6313a34e"/>
+				<reportElement x="100" y="53" width="430" height="14" uuid="90d9ef3a-87ae-4512-8be4-3a0f6313a34e"/>
 				<textElement textAlignment="Left">
 					<font fontName="Tahoma" size="10"/>
 					<paragraph lineSpacing="Single"/>
@@ -818,20 +818,6 @@
 					<jr:codeExpression><![CDATA[$P{finger}]]></jr:codeExpression>
 				</jr:QRCode>
 			</componentElement>
-			<textField>
-				<reportElement x="101" y="2" width="430" height="17" uuid="b0dffbe7-5c8a-4f84-909a-36973a4119bf"/>
-				<textElement textAlignment="Left">
-					<font fontName="Tahoma" size="14" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["PEMERINTAH KABUPATEN KARANGANYAR"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="357" y="439" width="100" height="30" uuid="db4b8b92-6e68-4a7c-9336-b0da7e05391d"/>
-				<textFieldExpression><![CDATA[$P{opiat}.equals("NEGATIF") && $P{ganja}.equals("NEGATIF") && $P{amphetamin}.equals("NEGATIF")
-? "hASILNYA NEGATIF"
-:  "HASIL POSITIF"]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<summary>
