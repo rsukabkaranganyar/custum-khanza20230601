@@ -30,9 +30,13 @@ import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
@@ -46,18 +50,18 @@ import widget.Button;
  * @author dosen
  */
 public final class DlgPeresepanDokter extends javax.swing.JDialog {
-    private final DefaultTableModel tabModeResep,tabModeDetailResepRacikan,tabModeResepRacikan;
+    private final DefaultTableModel tabModeResep,tabModeDetailResepRacikan,tabModeResepRacikan, tabObatTersubmit = null;
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
     private Connection koneksi=koneksiDB.condb();
-    private PreparedStatement psresep,pscarikapasitas,psresepasuransi,ps2;
-    private ResultSet rsobat,carikapasitas,rs2;
+    private PreparedStatement psresep,pscarikapasitas,psresepasuransi,ps2, ps_resep_obat_tersubmit;
+    private ResultSet rsobat,carikapasitas,rs2, rs_resep_obat_tersubmit;
     private double x=0,y=0,kenaikan=0,ttl=0,ppnobat=0,jumlahracik=0,persenracik=0,kapasitasracik=0;
     private int i=0,z=0,row2=0,r=0;
     private boolean ubah=false,copy=false,sukses=true;
     private boolean[] pilih; 
     private double[] jumlah,harga,beli,stok,kapasitas,p1,p2;
-    private String[] no,kodebarang,namabarang,kodesatuan,kandungan,letakbarang,namajenis,aturan,industri,komposisi;
+    private String[] no,kodebarang,namabarang,kodesatuan,kandungan,letakbarang,namajenis,aturan,industri,komposisi,noRMPasienArray;
     public DlgCariAturanPakai aturanpakai=new DlgCariAturanPakai(null,false);
     private WarnaTable2 warna=new WarnaTable2();
     private WarnaTable2 warna2=new WarnaTable2();
@@ -65,7 +69,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
     private DlgCariMetodeRacik metoderacik=new DlgCariMetodeRacik(null,false);
     public DlgCariDokter dokter=new DlgCariDokter(null,false);
     private String noracik="",aktifkanbatch="no",STOKKOSONGRESEP="no",qrystokkosong="",tampilkan_ppnobat_ralan="",status="",bangsal="",resep="",DEPOAKTIFOBAT="",
-            kamar="",norawatibu="",kelas,bangsaldefault=Sequel.cariIsi("select set_lokasi.kd_bangsal from set_lokasi limit 1"),RESEPRAJALKEPLAN="no";
+            kamar="",norawatibu="",kelas,bangsaldefault=Sequel.cariIsi("select set_lokasi.kd_bangsal from set_lokasi limit 1"),RESEPRAJALKEPLAN="no", noRMPasien="", dialog_resep="";
     /** Creates new form DlgPenyakit
      * @param parent
      * @param modal */
@@ -1230,7 +1234,44 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     }
                     Valid.tabelKosong(tabModeResepRacikan);
                     Valid.tabelKosong(tabModeDetailResepRacikan);
-                    dispose();
+                    System.out.println("TPasien: "+TPasien.getText().split(" "));
+                    noRMPasienArray = TPasien.getText().split(" ");
+                    noRMPasien = noRMPasienArray[0];
+                    String kdPj = Sequel.cariIsi("select reg_periksa.kd_pj from reg_periksa where reg_periksa.no_rawat=?",TNoRw.getText());
+                    System.out.println("No RM Pasien: "+noRMPasien);
+                    System.out.println("No Resep: "+NoResep.getText());
+                    try {
+                        ps_resep_obat_tersubmit = koneksi.prepareStatement("SELECT r.*, d.nama_brng FROM resep_dokter r LEFT JOIN databarang d ON r.kode_brng = d.kode_brng where r.no_resep = ?");
+                        ps_resep_obat_tersubmit.setString(1, NoResep.getText());
+                        rs_resep_obat_tersubmit = ps_resep_obat_tersubmit.executeQuery();
+                        dialog_resep = "Data obat yang tersimpan : \n";
+                        int no = 1;
+                        while (rs_resep_obat_tersubmit.next()) {
+                            System.out.println(rs_resep_obat_tersubmit.getString("kode_brng"));
+                            System.out.println(rs_resep_obat_tersubmit.getString("nama_brng"));
+                            dialog_resep += no+". "+rs_resep_obat_tersubmit.getString("nama_brng")+", Jml: "+rs_resep_obat_tersubmit.getString("jml")+", Aturan pakai: "+rs_resep_obat_tersubmit.getString("aturan_pakai")+"\n";
+                            no++;
+                        }
+                    } catch (SQLException ex) {
+                        // Logger.getLogger(DlgPeresepanDokter.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(ex);
+                    }
+                    String resep_tersubmit = "";
+                    int konfirm_resep = JOptionPane.showConfirmDialog(rootPane,dialog_resep,"Info No Resep: "+NoResep.getText(),JOptionPane.YES_NO_OPTION);
+                    if(konfirm_resep == JOptionPane.YES_OPTION){
+                        dispose();
+                    }else{
+                        dispose();
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        DlgCopyResep daftar=new DlgCopyResep(null,false);
+                        daftar.isCek();
+                        daftar.setRM(TNoRw.getText(),noRMPasien,KdDokter.getText(),kdPj,"ralan");
+                        daftar.tampil();
+                        daftar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+                        daftar.setLocationRelativeTo(internalFrame1);
+                        daftar.setVisible(true);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null,"Terjadi kesalahan saat pemrosesan data, transaksi dibatalkan.\nPeriksa kembali data sebelum melanjutkan menyimpan..!!");
                     Sequel.RollBack();
@@ -3814,7 +3855,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 }
             } 
 
-            for(i=0;i<tbObatResepRacikan.getRowCount();i++){ 
+            for(i=0;i<tbObatResepRacikan.getRowCount();i++){    
                 if(Valid.SetAngka(tbObatResepRacikan.getValueAt(i,4).toString())>0){ 
                     if(Sequel.menyimpantf2("resep_dokter_racikan","?,?,?,?,?,?,?","resep obat racikan",7,new String[]{
                        NoResep.getText(),tbObatResepRacikan.getValueAt(i,0).toString(),tbObatResepRacikan.getValueAt(i,1).toString(),

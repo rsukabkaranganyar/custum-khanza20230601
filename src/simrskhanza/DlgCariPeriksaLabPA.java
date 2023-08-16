@@ -1312,7 +1312,7 @@ private void tbDokterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             rs2=ps2.executeQuery();
                             while(rs2.next()){
                                 ps3=koneksi.prepareStatement(
-                                    "select diagnosa_klinik, makroskopik, mikroskopik, kesimpulan, kesan from detail_periksa_labpa "+
+                                    "select diagnosa_klinik, makroskopik, mikroskopik, kesimpulan, kesan, no_sample from detail_periksa_labpa "+
                                     "where no_rawat=? and kd_jenis_prw=? and tgl_periksa=? and jam=? ");
                                 try {
                                     ps3.setString(1,rs.getString("no_rawat"));
@@ -1322,7 +1322,7 @@ private void tbDokterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                     rs3=ps3.executeQuery();
                                     while(rs3.next()){
                                         Sequel.menyimpan("temporary_lab","'0','"+rs2.getString("nm_perawatan").replaceAll("'","")+"','"+rs3.getString("diagnosa_klinik").replaceAll("'","")+"','"+rs3.getString("makroskopik").replaceAll("'","")
-                                                +"','"+rs3.getString("mikroskopik").replaceAll("'","")+"','"+rs3.getString("kesimpulan").replaceAll("'","")+"','"+rs3.getString("kesan").replaceAll("'","")+"','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''","Data User"); 
+                                                +"','"+rs3.getString("mikroskopik").replaceAll("'","")+"','"+rs3.getString("kesimpulan").replaceAll("'","")+"','"+rs3.getString("kesan").replaceAll("'","")+"','"+rs3.getString("no_sample").replaceAll("'","")+"','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''","Data User"); 
                                     }
                                 } catch (Exception e) {
                                     System.out.println("Notif ps3 : "+e);
