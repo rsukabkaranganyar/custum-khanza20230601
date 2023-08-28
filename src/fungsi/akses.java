@@ -206,7 +206,7 @@ public final class akses {
             penilaian_lanjutan_resiko_jatuh_lansia=false,mpp_skrining=false,penilaian_pasien_penyakit_menular=false,edukasi_pasien_keluarga_rj=false,pemantauan_pews_dewasa=false,
             penilaian_tambahan_bunuh_diri=false,bpjs_antrean_pertanggal=false,penilaian_tambahan_perilaku_kekerasan=false,penilaian_tambahan_beresiko_melarikan_diri=false,
             persetujuan_penundaan_pelayanan=false,sisa_diet_pasien=false,penilaian_awal_medis_ralan_bedah_mulut=false,penilaian_pasien_keracunan=false,
-            pemantauan_meows_obstetri=false;
+            pemantauan_meows_obstetri=false, workstation=false, workstationconfiglist=false;
     
     public static void setData(String user, String pass) {
         try {        
@@ -1172,6 +1172,8 @@ public final class akses {
                         akses.penilaian_awal_medis_ralan_bedah_mulut=true;
                         akses.penilaian_pasien_keracunan=true;
                         akses.pemantauan_meows_obstetri=true;
+                        akses.workstation=true;
+                        akses.workstationconfiglist=true;
                     }else if(rs2.getRow()>=1){   
                         rs2.beforeFirst();
                         rs2.next();
@@ -4075,4 +4077,6 @@ public final class akses {
     public static boolean getpenilaian_awal_medis_ralan_bedah_mulut(){return akses.penilaian_awal_medis_ralan_bedah_mulut;}
     public static boolean getpenilaian_pasien_keracunan(){return akses.penilaian_pasien_keracunan;}
     public static boolean getpemantauan_meows_obstetri(){return akses.pemantauan_meows_obstetri;}
+    public static boolean getworkstation(){return akses.workstation;}
+    public static boolean getworkstationconfiglist(){return akses.workstationconfiglist;}
 }   
