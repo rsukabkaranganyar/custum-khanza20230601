@@ -163,6 +163,8 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         jLabel11 = new widget.Label();
         txtPrinterSharing = new widget.TextBox();
         txtNamaConfig = new widget.TextBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         Scroll = new widget.ScrollPane();
         tbWorkstation = new widget.Table();
         panelGlass5 = new widget.panelisi();
@@ -308,6 +310,16 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         });
         panelGlass7.add(txtNamaConfig);
         txtNamaConfig.setBounds(440, 40, 210, 24);
+
+        jLabel1.setText("Menggunakan double back slash");
+        jLabel1.setName("jLabel1"); // NOI18N
+        panelGlass7.add(jLabel1);
+        jLabel1.setBounds(710, 30, 270, 20);
+
+        jLabel2.setText("Example Hotsname: \\\\\\\\10.77.1.2\\\\Canon LBP2900");
+        jLabel2.setName("jLabel2"); // NOI18N
+        panelGlass7.add(jLabel2);
+        jLabel2.setBounds(710, 10, 270, 20);
 
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
@@ -456,7 +468,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
                 .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
                     .addComponent(panelGlass7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         internalFrame1Layout.setVerticalGroup(
@@ -486,17 +498,17 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
 }//GEN-LAST:event_txtAlamatIpKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-//        if(txtWorkstation.getText().trim().equals("")){
-//            Valid.textKosong(txtWorkstation,"Workstation/Hostname");
-//        }else if(txtAlamatIp.getText().trim().equals("")){
-//            Valid.textKosong(txtAlamatIp,"Alamat IP");
-//        }else if(tabMode.getRowCount()==0){
-            System.out.println("Menyimpan workstation");
-            Sequel.menyimpan("`workstation`(`ip_address`, `workstation`)","'"+txtAlamatIp.getText()+"','"+txtWorkstation.getText()+"'","Alamat IP");
-            tampil();
+        if(txtIdConfig.getText().trim().equals("")){
+            Valid.textKosong(txtIdConfig,"Config");
+        }else if(txtPrinterSharing.getText().trim().equals("")){
+            Valid.textKosong(txtPrinterSharing,"Printer Sharing");
+        }else{
+            System.out.println("Menyimpan workstation: "+txtIdWorkstation.getText()+", "+txtIdConfig.getText()+", "+txtPrinterSharing.getText());
+            Sequel.menyimpan("`workstation_config`(`id_workstation`, `id_workstation_config`, `sharing_printer`)","'"+txtIdWorkstation.getText()+"','"+txtIdConfig.getText()+"', '"+txtPrinterSharing.getText()+"'","Workstation Config");
+            tampil_list_config_workstation();
             emptTeks();
-//        }
-//        else if(tabMode.getRowCount()>0){
+        }
+//        else if(tabMode2.getRowCount()>0){
 //            JOptionPane.showMessageDialog(null,"Maaf, Hanya diijinkan satu Admin Utama ...!!!!");
 //            txtWorkstation.requestFocus();
 //        }
@@ -521,21 +533,21 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnBatalKeyPressed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        if(tabMode.getRowCount()==0){
+        if(tabMode2.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
             txtWorkstation.requestFocus();
-        }else if(txtAlamatIp.getText().trim().equals("")){
+        }else if(txtIdConfig.getText().trim().equals("")){
             JOptionPane.showMessageDialog(null,"Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus.\nKlik data pada table untuk memilih...!!!!");
-        }else if(! txtAlamatIp.getText().trim().equals("")){
+        }else if(! txtIdConfig.getText().trim().equals("")){
             int reallyDelete = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?");
             if(reallyDelete == 0){
                 try {
-                    String id = txtIdWorkstation.getText();
-                    Sequel.queryu("DELETE FROM `workstation` WHERE id_workstation = "+id);
+                    String id = txtIdConfig.getText();
+                    Sequel.queryu("DELETE FROM `workstation_config` WHERE id_config = "+id);
                 } catch (Exception e) {
                     System.out.println("Ada yang error: "+e);
                 }finally{
-                    tampil();
+                    tampil_list_config_workstation();
                     emptTeks();
                 }   
             }
@@ -556,8 +568,9 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         }else if(txtAlamatIp.getText().trim().equals("")){
             Valid.textKosong(txtAlamatIp,"Alamat IP");
         }else{
-            Sequel.queryu("UPDATE `workstation` SET `ip_address`='"+txtAlamatIp.getText()+"',`workstation`='"+txtWorkstation.getText()+"' WHERE `id_workstation`="+txtIdWorkstation.getText());
-            if(tabMode.getRowCount()!=0){tampil();}
+            String id = txtIdConfig.getText();
+            Sequel.queryu("UPDATE `workstation_config` SET `sharing_printer`='"+txtPrinterSharing.getText()+"' WHERE `id_config`="+id);
+            if(tabMode2.getRowCount()!=0){tampil_list_config_workstation();}
             emptTeks();
         }
 }//GEN-LAST:event_BtnEditActionPerformed
@@ -646,7 +659,14 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
     }//GEN-LAST:event_txtIdConfigKeyPressed
 
     private void tbConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbConfigMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
+        if(tabMode2.getRowCount()!=0){
+            try {
+                getData_list_config_workstation();
+                tampil_list_config_workstation();
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
     }//GEN-LAST:event_tbConfigMouseClicked
 
     private void tbConfigKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbConfigKeyPressed
@@ -687,8 +707,10 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
     private widget.ScrollPane Scroll2;
     private widget.Button btnSearchConfig;
     private widget.InternalFrame internalFrame1;
+    private javax.swing.JLabel jLabel1;
     private widget.Label jLabel10;
     private widget.Label jLabel11;
+    private javax.swing.JLabel jLabel2;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
@@ -790,12 +812,24 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             txtAlamatIp.setText(ip_address);
         }
     }
+    
+    private void getData_list_config_workstation() {
+        int row=tbConfig.getSelectedRow();
+        if(row!= -1){
+            String id=tabMode2.getValueAt(row,0).toString();
+            String config_name=tabMode2.getValueAt(row,1).toString();
+            String sharing_printer=tabMode2.getValueAt(row,2).toString();
+            txtIdConfig.setText(id);
+            txtNamaConfig.setText(config_name);
+            txtPrinterSharing.setText(sharing_printer);
+        }
+    }
 
     public void emptTeks() {
-        txtIdWorkstation.setText("");
-        txtWorkstation.setText("");
-        txtAlamatIp.setText("");
-        txtWorkstation.requestFocus();
+        txtIdConfig.setText("");
+        txtNamaConfig.setText("");
+        txtPrinterSharing.setText("");
+        txtNamaConfig.requestFocus();
     }
     
     public JTable getTable(){

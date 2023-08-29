@@ -67,7 +67,9 @@ public final class sekuel {
 
     public void menyimpan(String table,String value,String sama){
         try {
-            ps=connect.prepareStatement("insert into "+table+" values("+value+")");
+            String query = "insert into "+table+" values("+value+")";
+            System.out.println(query);
+            ps=connect.prepareStatement(query);
             try{                  
                 ps.executeUpdate();
             }catch(Exception e){
