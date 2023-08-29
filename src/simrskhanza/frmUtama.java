@@ -868,6 +868,7 @@ import setting.DlgRuangOperasi;
 import setting.DlgSetHargaToko;
 import setting.DlgWorkstation;
 import setting.DlgWorkstationConfigList;
+import setting.DlgWorkstationSetup;
 import smsui.frmSmsView;
 import surat.PengumumanEPasien;
 import surat.SuratAlmari;
@@ -1112,6 +1113,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
         btnDataPenyerahanDarah = new widget.ButtonBig();
+        btnWorkstationSetup = new widget.ButtonBig();
         btnResepObatDepan = new widget.ButtonBig();
         btnBarcode = new widget.ButtonBig();
         btnICD = new widget.ButtonBig();
@@ -1917,6 +1919,17 @@ public class frmUtama extends javax.swing.JFrame {
         btnDataPenyerahanDarah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataPenyerahanDarahActionPerformed(evt);
+            }
+        });
+
+        btnWorkstationSetup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/local_network.png"))); // NOI18N
+        btnWorkstationSetup.setText("Setup Workstation");
+        btnWorkstationSetup.setIconTextGap(0);
+        btnWorkstationSetup.setName("btnWorkstationSetup"); // NOI18N
+        btnWorkstationSetup.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnWorkstationSetup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWorkstationSetupActionPerformed(evt);
             }
         });
 
@@ -14508,6 +14521,20 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnWorkstationConfigListActionPerformed
 
+    private void btnWorkstationSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWorkstationSetupActionPerformed
+        // TODO add your handling code here:
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgWorkstationSetup form=new DlgWorkstationSetup(this,false);
+//        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnWorkstationSetupActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -20791,6 +20818,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnVakum;
     private widget.ButtonBig btnWorkstation;
     private widget.ButtonBig btnWorkstationConfigList;
+    private widget.ButtonBig btnWorkstationSetup;
     private widget.ButtonBig btnakun_bayar;
     private widget.ButtonBig btnbayar_pemesanan;
     private widget.ButtonBig btnfee_bacaan_ekg;
@@ -25743,6 +25771,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getworkstationconfiglist()==true){
                 Panelmenu.add(btnWorkstationConfigList);
+                jmlmenu++;
+            }
+            
+            if(akses.getworkstationsetup()==true){
+                Panelmenu.add(btnWorkstationSetup);
                 jmlmenu++;
             }
         }    
