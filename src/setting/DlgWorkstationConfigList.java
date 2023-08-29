@@ -543,4 +543,8 @@ public class DlgWorkstationConfigList extends javax.swing.JDialog {
         txtJasperReportName.setText("");
         txtConfigName.requestFocus();
     }
+    
+    public JTable getTable(){
+        return tbWorkstation;
+    }
 }

@@ -19,8 +19,11 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.validasi2;
+import fungsi.akses;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,23 +36,26 @@ import javax.swing.table.TableColumn;
  *
  * @author perpustakaan
  */
-public class DlgWorkstation extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode;
+public class DlgWorkstationSetup extends javax.swing.JDialog {
+    private final DefaultTableModel tabMode,tabMode2;
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi2 Valid=new validasi2();
     private ResultSet rs;
     private PreparedStatement ps;
+    public DlgWorkstationConfigList workstation_list = new DlgWorkstationConfigList(null, false);
+    private int pilihan=0;
 
     /** Creates new form DlgAdmin
      * @param parent
      * @param modal */
-    public DlgWorkstation(java.awt.Frame parent, boolean modal) {
+    public DlgWorkstationSetup(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocation(10,10);
         setSize(457,249);
-
+        
+//        tabel workstation
         Object[] row={"ID",
                       "IP Address",
                       "Workstation"};
@@ -63,20 +69,74 @@ public class DlgWorkstation extends javax.swing.JDialog {
         tbWorkstation.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbWorkstation.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             TableColumn column = tbWorkstation.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(50);
             }else if(i==1){
+                column.setPreferredWidth(250);
+            }else if(i==2){
                 column.setPreferredWidth(250);
             }
         }
 
         tbWorkstation.setDefaultRenderer(Object.class, new WarnaTable());
         
+//        tabel config
+        Object[] row_config={"ID",
+                             "Nama Config",
+                             "Printer Sharing"};
+        tabMode2 = new DefaultTableModel(null,row_config){
+            @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
+        };
+
+        tbConfig.setModel(tabMode2);
+        //tampil();
+        tbConfig.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbConfig.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 3; i++) {
+            TableColumn column = tbConfig.getColumnModel().getColumn(i);
+            if(i==0){
+                column.setPreferredWidth(50);
+            }else if(i==1){
+                column.setPreferredWidth(250);
+            }else if(i==2){
+                column.setPreferredWidth(250);
+            }
+        }
+
+        tbConfig.setDefaultRenderer(Object.class, new WarnaTable());
+        
         txtIdWorkstation.setEditable(false);
         txtWorkstation.setDocument(new batasInput((byte)30).getKata(txtWorkstation));
         txtAlamatIp.setDocument(new batasInput((byte)30).getKata(txtAlamatIp));
+        
+        workstation_list.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(akses.getform().equals("DlgWorkstationSetup")){
+                    if(workstation_list.getTable().getSelectedRow()!= -1){  
+                        txtIdConfig.setText(workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),0).toString());
+                        txtNamaConfig.setText(workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),1).toString());
+                    }  
+                    txtPrinterSharing.requestFocus();
+                }
+                System.out.println("get data dlgworkstationsetup: "+workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),0).toString());
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
     }
 
     /** This method is called from within the constructor to
@@ -89,21 +149,30 @@ public class DlgWorkstation extends javax.swing.JDialog {
     private void initComponents() {
 
         internalFrame1 = new widget.InternalFrame();
-        Scroll = new widget.ScrollPane();
-        tbWorkstation = new widget.Table();
         panelGlass7 = new widget.panelisi();
-        jLabel3 = new widget.Label();
         txtWorkstation = new widget.TextBox();
         jLabel4 = new widget.Label();
         txtAlamatIp = new widget.TextBox();
         jLabel5 = new widget.Label();
         txtIdWorkstation = new widget.TextBox();
+        jLabel6 = new widget.Label();
+        btnSearchConfig = new widget.Button();
+        jLabel8 = new widget.Label();
+        txtIdConfig = new widget.TextBox();
+        jLabel10 = new widget.Label();
+        jLabel11 = new widget.Label();
+        txtPrinterSharing = new widget.TextBox();
+        txtNamaConfig = new widget.TextBox();
+        Scroll = new widget.ScrollPane();
+        tbWorkstation = new widget.Table();
         panelGlass5 = new widget.panelisi();
         BtnSimpan = new widget.Button();
         BtnBatal = new widget.Button();
         BtnHapus = new widget.Button();
         BtnEdit = new widget.Button();
         BtnKeluar = new widget.Button();
+        Scroll2 = new widget.ScrollPane();
+        tbConfig = new widget.Table();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -117,13 +186,132 @@ public class DlgWorkstation extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Workstation List ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Workstation Setup ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        internalFrame1.setMinimumSize(new java.awt.Dimension(500, 85));
         internalFrame1.setName("internalFrame1"); // NOI18N
-        internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
+
+        panelGlass7.setName("panelGlass7"); // NOI18N
+        panelGlass7.setPreferredSize(new java.awt.Dimension(44, 47));
+        panelGlass7.setLayout(null);
+
+        txtWorkstation.setHighlighter(null);
+        txtWorkstation.setName("txtWorkstation"); // NOI18N
+        txtWorkstation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtWorkstationActionPerformed(evt);
+            }
+        });
+        txtWorkstation.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtWorkstationKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtWorkstation);
+        txtWorkstation.setBounds(120, 40, 210, 23);
+
+        jLabel4.setText("Nama Config");
+        jLabel4.setName("jLabel4"); // NOI18N
+        panelGlass7.add(jLabel4);
+        jLabel4.setBounds(340, 40, 90, 23);
+
+        txtAlamatIp.setName("txtAlamatIp"); // NOI18N
+        txtAlamatIp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtAlamatIpKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtAlamatIp);
+        txtAlamatIp.setBounds(120, 70, 210, 24);
+
+        jLabel5.setText("IP Computer");
+        jLabel5.setName("jLabel5"); // NOI18N
+        panelGlass7.add(jLabel5);
+        jLabel5.setBounds(10, 70, 90, 23);
+
+        txtIdWorkstation.setHighlighter(null);
+        txtIdWorkstation.setName("txtIdWorkstation"); // NOI18N
+        txtIdWorkstation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdWorkstationActionPerformed(evt);
+            }
+        });
+        txtIdWorkstation.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdWorkstationKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtIdWorkstation);
+        txtIdWorkstation.setBounds(120, 10, 50, 23);
+
+        jLabel6.setText("Printer Sharing");
+        jLabel6.setName("jLabel6"); // NOI18N
+        panelGlass7.add(jLabel6);
+        jLabel6.setBounds(340, 70, 90, 23);
+
+        btnSearchConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        btnSearchConfig.setMnemonic('3');
+        btnSearchConfig.setToolTipText("ALt+3");
+        btnSearchConfig.setName("btnSearchConfig"); // NOI18N
+        btnSearchConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchConfigActionPerformed(evt);
+            }
+        });
+        panelGlass7.add(btnSearchConfig);
+        btnSearchConfig.setBounds(660, 40, 28, 20);
+
+        jLabel8.setText("ID Config");
+        jLabel8.setName("jLabel8"); // NOI18N
+        panelGlass7.add(jLabel8);
+        jLabel8.setBounds(350, 10, 80, 23);
+
+        txtIdConfig.setHighlighter(null);
+        txtIdConfig.setName("txtIdConfig"); // NOI18N
+        txtIdConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdConfigActionPerformed(evt);
+            }
+        });
+        txtIdConfig.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdConfigKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtIdConfig);
+        txtIdConfig.setBounds(440, 10, 50, 23);
+
+        jLabel10.setText("ID");
+        jLabel10.setName("jLabel10"); // NOI18N
+        panelGlass7.add(jLabel10);
+        jLabel10.setBounds(10, 10, 90, 23);
+
+        jLabel11.setText("Nama Workstation");
+        jLabel11.setName("jLabel11"); // NOI18N
+        panelGlass7.add(jLabel11);
+        jLabel11.setBounds(10, 40, 90, 23);
+
+        txtPrinterSharing.setName("txtPrinterSharing"); // NOI18N
+        txtPrinterSharing.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrinterSharingKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtPrinterSharing);
+        txtPrinterSharing.setBounds(440, 70, 210, 24);
+
+        txtNamaConfig.setName("txtNamaConfig"); // NOI18N
+        txtNamaConfig.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNamaConfigKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtNamaConfig);
+        txtNamaConfig.setBounds(440, 40, 210, 24);
 
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
+        Scroll.setPreferredSize(new java.awt.Dimension(452, 300));
 
         tbWorkstation.setAutoCreateRowSorter(true);
         tbWorkstation.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
@@ -139,68 +327,6 @@ public class DlgWorkstation extends javax.swing.JDialog {
             }
         });
         Scroll.setViewportView(tbWorkstation);
-
-        internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
-
-        panelGlass7.setName("panelGlass7"); // NOI18N
-        panelGlass7.setPreferredSize(new java.awt.Dimension(44, 47));
-        panelGlass7.setLayout(null);
-
-        jLabel3.setText("Nama Workstation");
-        jLabel3.setName("jLabel3"); // NOI18N
-        panelGlass7.add(jLabel3);
-        jLabel3.setBounds(110, 10, 90, 23);
-
-        txtWorkstation.setHighlighter(null);
-        txtWorkstation.setName("txtWorkstation"); // NOI18N
-        txtWorkstation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtWorkstationActionPerformed(evt);
-            }
-        });
-        txtWorkstation.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtWorkstationKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(txtWorkstation);
-        txtWorkstation.setBounds(210, 10, 190, 23);
-
-        jLabel4.setText("Alamat IP");
-        jLabel4.setName("jLabel4"); // NOI18N
-        panelGlass7.add(jLabel4);
-        jLabel4.setBounds(390, 10, 74, 23);
-
-        txtAlamatIp.setName("txtAlamatIp"); // NOI18N
-        txtAlamatIp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtAlamatIpKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(txtAlamatIp);
-        txtAlamatIp.setBounds(470, 10, 210, 24);
-
-        jLabel5.setText("ID");
-        jLabel5.setName("jLabel5"); // NOI18N
-        panelGlass7.add(jLabel5);
-        jLabel5.setBounds(10, 10, 20, 23);
-
-        txtIdWorkstation.setHighlighter(null);
-        txtIdWorkstation.setName("txtIdWorkstation"); // NOI18N
-        txtIdWorkstation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdWorkstationActionPerformed(evt);
-            }
-        });
-        txtIdWorkstation.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtIdWorkstationKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(txtIdWorkstation);
-        txtIdWorkstation.setBounds(40, 10, 50, 23);
-
-        internalFrame1.add(panelGlass7, java.awt.BorderLayout.PAGE_START);
 
         panelGlass5.setName("panelGlass5"); // NOI18N
         panelGlass5.setPreferredSize(new java.awt.Dimension(55, 55));
@@ -300,7 +426,51 @@ public class DlgWorkstation extends javax.swing.JDialog {
         });
         panelGlass5.add(BtnKeluar);
 
-        internalFrame1.add(panelGlass5, java.awt.BorderLayout.PAGE_END);
+        Scroll2.setName("Scroll2"); // NOI18N
+        Scroll2.setOpaque(true);
+        Scroll2.setPreferredSize(new java.awt.Dimension(452, 300));
+
+        tbConfig.setAutoCreateRowSorter(true);
+        tbConfig.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbConfig.setName("tbConfig"); // NOI18N
+        tbConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbConfigMouseClicked(evt);
+            }
+        });
+        tbConfig.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbConfigKeyPressed(evt);
+            }
+        });
+        Scroll2.setViewportView(tbConfig);
+
+        javax.swing.GroupLayout internalFrame1Layout = new javax.swing.GroupLayout(internalFrame1);
+        internalFrame1.setLayout(internalFrame1Layout);
+        internalFrame1Layout.setHorizontalGroup(
+            internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(internalFrame1Layout.createSequentialGroup()
+                .addComponent(panelGlass5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(internalFrame1Layout.createSequentialGroup()
+                .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(panelGlass7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        internalFrame1Layout.setVerticalGroup(
+            internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(internalFrame1Layout.createSequentialGroup()
+                .addGroup(internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(internalFrame1Layout.createSequentialGroup()
+                        .addComponent(panelGlass7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+                    .addComponent(Scroll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelGlass5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
 
@@ -419,6 +589,7 @@ public class DlgWorkstation extends javax.swing.JDialog {
         if(tabMode.getRowCount()!=0){
             try {
                 getData();
+                tampil_list_config_workstation();
             } catch (java.lang.NullPointerException e) {
             }
         }
@@ -436,7 +607,7 @@ public class DlgWorkstation extends javax.swing.JDialog {
 }//GEN-LAST:event_tbWorkstationKeyPressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        emptTeks();
+//        emptTeks();
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -455,12 +626,47 @@ public class DlgWorkstation extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdWorkstationKeyPressed
 
+    private void btnSearchConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchConfigActionPerformed
+        pilihan=1;
+        akses.setform("DlgWorkstationSetup");
+        if(akses.getkode().equals("Admin Utama")){
+//            workstation.TCari.requestFocus();
+            workstation_list.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            workstation_list.setLocationRelativeTo(internalFrame1);
+            workstation_list.setVisible(true);
+        }
+    }//GEN-LAST:event_btnSearchConfigActionPerformed
+
+    private void txtIdConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdConfigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdConfigActionPerformed
+
+    private void txtIdConfigKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdConfigKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdConfigKeyPressed
+
+    private void tbConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbConfigMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbConfigMouseClicked
+
+    private void tbConfigKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbConfigKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbConfigKeyPressed
+
+    private void txtPrinterSharingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrinterSharingKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrinterSharingKeyPressed
+
+    private void txtNamaConfigKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaConfigKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaConfigKeyPressed
+
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            DlgWorkstation dialog = new DlgWorkstation(new javax.swing.JFrame(), true);
+            DlgWorkstationSetup dialog = new DlgWorkstationSetup(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -478,15 +684,24 @@ public class DlgWorkstation extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnSimpan;
     private widget.ScrollPane Scroll;
+    private widget.ScrollPane Scroll2;
+    private widget.Button btnSearchConfig;
     private widget.InternalFrame internalFrame1;
-    private widget.Label jLabel3;
+    private widget.Label jLabel10;
+    private widget.Label jLabel11;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
+    private widget.Label jLabel6;
+    private widget.Label jLabel8;
     private widget.panelisi panelGlass5;
     private widget.panelisi panelGlass7;
+    private widget.Table tbConfig;
     private widget.Table tbWorkstation;
     private widget.TextBox txtAlamatIp;
+    private widget.TextBox txtIdConfig;
     private widget.TextBox txtIdWorkstation;
+    private widget.TextBox txtNamaConfig;
+    private widget.TextBox txtPrinterSharing;
     private widget.TextBox txtWorkstation;
     // End of variables declaration//GEN-END:variables
 
@@ -504,6 +719,51 @@ public class DlgWorkstation extends javax.swing.JDialog {
                         rs.getString(3)
                     });
                  }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Notifikasi : "+e);
+        }
+    }
+        
+//    menampilkan list config-config yang sudah tersimpan
+    public void tampil_list_config_workstation() {
+        Valid.tabelKosong(tabMode2);
+        String id_workstation = tbWorkstation.getValueAt(tbWorkstation.getSelectedRow(), 0).toString();
+        try{
+//            ps=koneksi.prepareStatement("select AES_DECRYPT(usere,'nur'),AES_DECRYPT(passworde,'windi') from admin");
+            String query = "SELECT wc.*, w.ip_address, w.workstation, wcl.config_name, wcl.jasper_report_name\n" +
+                           "FROM workstation_config wc\n" +
+                           "LEFT JOIN workstation w ON wc.id_workstation = w.id_workstation\n" +
+                           "LEFT JOIN workstation_config_list wcl ON wc.id_workstation_config = wcl.id_workstation_config\n"+
+                           "WHERE wc.id_workstation = '"+id_workstation+"'";
+                  ps=koneksi.prepareStatement(query);
+            try {
+                rs=ps.executeQuery();
+                boolean found = false;
+                while(rs.next()){
+                    found = true;
+                    tabMode2.addRow(new String[]{
+                        rs.getString(1),
+                        rs.getString(9),
+                        rs.getString(4)
+                    });
+                }
+                if(found == false){
+                    tabMode2.addRow(new String[]{
+                        "---",
+                        "No Data",
+                        "---"
+                    });
+                }
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);
             } finally{
