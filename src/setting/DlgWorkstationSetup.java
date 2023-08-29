@@ -613,6 +613,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
                 try {
                     getData();
+                    tampil_list_config_workstation();
                 } catch (java.lang.NullPointerException e) {
                 }
             }
@@ -663,7 +664,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         if(tabMode2.getRowCount()!=0){
             try {
                 getData_list_config_workstation();
-                tampil_list_config_workstation();
+//                tampil_list_config_workstation();
             } catch (java.lang.NullPointerException e) {
             }
         }
@@ -671,6 +672,15 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
 
     private void tbConfigKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbConfigKeyPressed
         // TODO add your handling code here:
+        if(tabMode2.getRowCount()!=0){
+            if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
+                try {
+                    getData_list_config_workstation();
+//                    tampil_list_config_workstation();
+                } catch (java.lang.NullPointerException e) {
+                }
+            }
+        }
     }//GEN-LAST:event_tbConfigKeyPressed
 
     private void txtPrinterSharingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrinterSharingKeyPressed
