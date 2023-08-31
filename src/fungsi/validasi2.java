@@ -62,6 +62,7 @@ import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.MediaPrintableArea;
 import javax.print.attribute.standard.MediaSizeName;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.print.attribute.standard.PrinterName;
@@ -788,6 +789,10 @@ public final class validasi2 {
                     rs_workstation.next();
                     System.out.println("Query: "+query);
                     System.out.println("Sharing printer: "+rs_workstation.getString("sharing_printer"));
+                    Integer x = rs_workstation.getInt("margin_x");
+                    Integer y = rs_workstation.getInt("margin_y");
+                    Integer width = rs_workstation.getInt("width");
+                    Integer height = rs_workstation.getInt("height");
                     if (rs_workstation != null) {
                         //String selectedPrinter = "\\\\10.77.41.99\\Canon LBP2900"; // examlpe to network shared printer
                         
@@ -800,7 +805,9 @@ public final class validasi2 {
 
                         //Set the printing settings
                         PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
-                        printRequestAttributeSet.add(MediaSizeName.ISO_A4);
+//                        printRequestAttributeSet.add(MediaSizeName.ISO_A4);
+//                        x,y adalah margin; w, h adalah ukuran kertas (kertas label zebra zd230 menggunakan ukuran 66mm dan 35mm dengan margin 0
+                        printRequestAttributeSet.add(new MediaPrintableArea(x, y, width, height, MediaPrintableArea.MM));
                         printRequestAttributeSet.add(new Copies(1));
 
                         if (jasperPrint.getOrientationValue() == net.sf.jasperreports.engine.type.OrientationEnum.LANDSCAPE) { 

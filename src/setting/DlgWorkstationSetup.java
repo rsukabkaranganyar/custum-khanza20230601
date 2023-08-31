@@ -85,7 +85,11 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
 //        tabel config
         Object[] row_config={"ID",
                              "Nama Config",
-                             "Printer Sharing"};
+                             "Printer Sharing",
+                             "Margin X",
+                             "Margin Y",
+                             "Width",
+                             "Height"};
         tabMode2 = new DefaultTableModel(null,row_config){
             @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -165,6 +169,14 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         txtNamaConfig = new widget.TextBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new widget.Label();
+        txtMarginX = new widget.TextBox();
+        jLabel9 = new widget.Label();
+        txtMarginY = new widget.TextBox();
+        jLabel13 = new widget.Label();
+        txtWidth = new widget.TextBox();
+        jLabel14 = new widget.Label();
+        txtHeight = new widget.TextBox();
         Scroll = new widget.ScrollPane();
         tbWorkstation = new widget.Table();
         panelGlass5 = new widget.panelisi();
@@ -321,6 +333,62 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         panelGlass7.add(jLabel2);
         jLabel2.setBounds(710, 10, 270, 20);
 
+        jLabel7.setText("X");
+        jLabel7.setName("jLabel7"); // NOI18N
+        panelGlass7.add(jLabel7);
+        jLabel7.setBounds(710, 70, 20, 23);
+
+        txtMarginX.setName("txtMarginX"); // NOI18N
+        txtMarginX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMarginXKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtMarginX);
+        txtMarginX.setBounds(740, 70, 40, 24);
+
+        jLabel9.setText("Y");
+        jLabel9.setName("jLabel9"); // NOI18N
+        panelGlass7.add(jLabel9);
+        jLabel9.setBounds(790, 70, 20, 23);
+
+        txtMarginY.setName("txtMarginY"); // NOI18N
+        txtMarginY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMarginYKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtMarginY);
+        txtMarginY.setBounds(820, 70, 40, 24);
+
+        jLabel13.setText("W");
+        jLabel13.setName("jLabel13"); // NOI18N
+        panelGlass7.add(jLabel13);
+        jLabel13.setBounds(870, 70, 20, 23);
+
+        txtWidth.setName("txtWidth"); // NOI18N
+        txtWidth.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtWidthKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtWidth);
+        txtWidth.setBounds(900, 70, 40, 24);
+
+        jLabel14.setText("H");
+        jLabel14.setName("jLabel14"); // NOI18N
+        panelGlass7.add(jLabel14);
+        jLabel14.setBounds(950, 70, 20, 23);
+
+        txtHeight.setName("txtHeight"); // NOI18N
+        txtHeight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtHeightKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(txtHeight);
+        txtHeight.setBounds(980, 70, 40, 24);
+
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
         Scroll.setPreferredSize(new java.awt.Dimension(452, 300));
@@ -468,7 +536,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
                 .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(internalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                    .addComponent(Scroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
                     .addComponent(panelGlass7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         internalFrame1Layout.setVerticalGroup(
@@ -504,7 +572,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             Valid.textKosong(txtPrinterSharing,"Printer Sharing");
         }else{
             System.out.println("Menyimpan workstation: "+txtIdWorkstation.getText()+", "+txtIdConfig.getText()+", "+txtPrinterSharing.getText());
-            Sequel.menyimpan("`workstation_config`(`id_workstation`, `id_workstation_config`, `sharing_printer`)","'"+txtIdWorkstation.getText()+"','"+txtIdConfig.getText()+"', '"+txtPrinterSharing.getText()+"'","Workstation Config");
+            Sequel.menyimpan("`workstation_config`(`id_workstation`, `id_workstation_config`, `sharing_printer`, `margin_x`, `margin_y`, `width`, `height`)","'"+txtIdWorkstation.getText()+"','"+txtIdConfig.getText()+"', '"+txtPrinterSharing.getText()+"', '"+txtMarginX.getText()+"', '"+txtMarginY.getText()+"', '"+txtWidth.getText()+"', '"+txtHeight.getText()+"'","Workstation Config");
             tampil_list_config_workstation();
             emptTeks();
         }
@@ -569,7 +637,7 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             Valid.textKosong(txtAlamatIp,"Alamat IP");
         }else{
             String id = txtIdConfig.getText();
-            Sequel.queryu("UPDATE `workstation_config` SET `sharing_printer`='"+txtPrinterSharing.getText()+"' WHERE `id_config`="+id);
+            Sequel.queryu("UPDATE `workstation_config` SET `sharing_printer`='"+txtPrinterSharing.getText()+"', `margin_x` = '"+txtMarginX.getText()+"', `margin_y` = '"+txtMarginY.getText()+"', `width` = '"+txtWidth.getText()+"', `height` = '"+txtHeight.getText()+"' WHERE `id_config`="+id);
             if(tabMode2.getRowCount()!=0){tampil_list_config_workstation();}
             emptTeks();
         }
@@ -691,6 +759,22 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaConfigKeyPressed
 
+    private void txtMarginXKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarginXKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarginXKeyPressed
+
+    private void txtMarginYKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarginYKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarginYKeyPressed
+
+    private void txtWidthKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWidthKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtWidthKeyPressed
+
+    private void txtHeightKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHeightKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHeightKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -720,20 +804,28 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private widget.Label jLabel10;
     private widget.Label jLabel11;
+    private widget.Label jLabel13;
+    private widget.Label jLabel14;
     private javax.swing.JLabel jLabel2;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
+    private widget.Label jLabel7;
     private widget.Label jLabel8;
+    private widget.Label jLabel9;
     private widget.panelisi panelGlass5;
     private widget.panelisi panelGlass7;
     private widget.Table tbConfig;
     private widget.Table tbWorkstation;
     private widget.TextBox txtAlamatIp;
+    private widget.TextBox txtHeight;
     private widget.TextBox txtIdConfig;
     private widget.TextBox txtIdWorkstation;
+    private widget.TextBox txtMarginX;
+    private widget.TextBox txtMarginY;
     private widget.TextBox txtNamaConfig;
     private widget.TextBox txtPrinterSharing;
+    private widget.TextBox txtWidth;
     private widget.TextBox txtWorkstation;
     // End of variables declaration//GEN-END:variables
 
@@ -784,9 +876,13 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
                 while(rs.next()){
                     found = true;
                     tabMode2.addRow(new String[]{
-                        rs.getString(1),
-                        rs.getString(9),
-                        rs.getString(4)
+                        rs.getString("id_config"),
+                        rs.getString("config_name"),
+                        rs.getString("sharing_printer"),
+                        rs.getString("margin_x"),
+                        rs.getString("margin_y"),
+                        rs.getString("width"),
+                        rs.getString("height")
                     });
                 }
                 if(found == false){
@@ -829,9 +925,17 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             String id=tabMode2.getValueAt(row,0).toString();
             String config_name=tabMode2.getValueAt(row,1).toString();
             String sharing_printer=tabMode2.getValueAt(row,2).toString();
+            String x=tabMode2.getValueAt(row,3).toString();
+            String y=tabMode2.getValueAt(row,4).toString();
+            String w=tabMode2.getValueAt(row,5).toString();
+            String h=tabMode2.getValueAt(row,6).toString();
             txtIdConfig.setText(id);
             txtNamaConfig.setText(config_name);
             txtPrinterSharing.setText(sharing_printer);
+            txtMarginX.setText(x);
+            txtMarginY.setText(y);
+            txtWidth.setText(w);
+            txtHeight.setText(h);
         }
     }
 
