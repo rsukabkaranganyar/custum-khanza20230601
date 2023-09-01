@@ -130,7 +130,6 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
                     }  
                     txtPrinterSharing.requestFocus();
                 }
-                System.out.println("get data dlgworkstationsetup: "+workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),0).toString());
             }
             @Override
             public void windowIconified(WindowEvent e) {}

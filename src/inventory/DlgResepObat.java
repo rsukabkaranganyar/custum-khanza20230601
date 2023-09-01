@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileInputStream;
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -175,7 +176,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
             }
         }
         tbTambahan1.setDefaultRenderer(Object.class, new WarnaTable());
-        
+ 
         TNoRw.setDocument(new batasInput((byte)17).getKata(TNoRw));
         KdDokter.setDocument(new batasInput((byte)20).getKata(KdDokter));
         NoResep.setDocument(new batasInput((byte)10).getKata(NoResep));
@@ -2483,6 +2484,45 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // End of variables declaration//GEN-END:variables
 
     public void tampil() {
+        //        cek apakah sudah ada config untuk print otomatis
+        try{
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            String hostname = InetAddress.getLocalHost().getHostName();
+            String ip_address = inetAddress.getHostAddress();
+            String query = "SELECT wc.*, w.ip_address, w.workstation, wcl.config_name, wcl.jasper_report_name\n" +
+                                   "FROM workstation_config wc\n" +
+                                   "LEFT JOIN workstation w ON wc.id_workstation = w.id_workstation\n" +
+                                   "LEFT JOIN workstation_config_list wcl ON wc.id_workstation_config = wcl.id_workstation_config\n"+
+                                   "WHERE w.ip_address  = '"+ip_address+"' AND w.workstation = '"+hostname+"'";
+            ps=koneksi.prepareStatement(query);
+            System.out.println("cek apakah sudah ada config untuk print otomatis");
+            
+            try {
+                rs=ps.executeQuery();
+                boolean found = false;
+                while(rs.next()){
+                    found = true;
+                    BtnPrint.setEnabled(found);
+                    System.out.println("BtnPrint Enabled");
+                }
+                if(found == false){
+                    BtnPrint.setEnabled(found);
+                    System.out.println("BtnPrint Disabled");
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Notifikasi : "+e);
+        }
+        
         Valid.tabelKosong(tabMode);
         try{  
             ps=koneksi.prepareStatement("select resep_obat.no_resep,resep_obat.tgl_perawatan,resep_obat.jam,"+
