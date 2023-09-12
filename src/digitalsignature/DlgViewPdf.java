@@ -276,7 +276,7 @@ void viewpdf(String fileName,String fileLocation){
               jScrollPane1.setViewportView(s); 
         }
         catch (Exception e){
-            
+            System.out.println("View PDF: " + e);
         }
 }
     void openpdf(String file){
@@ -460,7 +460,7 @@ public void tampilPdfLocal(String namFile,String Location,String pathFile,String
      txtNameFile.setText(namFile);
      txtLokasiFile.setText(pathFile);
      txtNoRawat.setText(NoRawat);
-  viewpdf(namFile,Location);
+     viewpdf(namFile,Location);
  
 
 }

@@ -777,6 +777,52 @@ public final class validasi2 {
             System.out.println(e);
         }
     }
+        
+        public void MyReportPDFWithName2(String reportName,String reportDirName,String reportDirLoc,String name,String judul,Map parameters){
+        Properties systemProp = System.getProperties();
+
+        // Ambil current dir
+        String currentDir = systemProp.getProperty("user.dir");
+
+        File dir = new File(currentDir);
+
+        File fileRpt;
+        String fullPath = "";
+        if (dir.isDirectory()) {
+            String[] isiDir = dir.list();
+            for (String iDir : isiDir) {
+                fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
+                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jasper ada
+                    fullPath = fileRpt.toString();
+                    System.out.println("Found Report File at : " + fullPath);
+                } // end if
+            } // end for i
+        } // end if
+
+        try {
+            try (Statement stm = connect.createStatement()) {
+                try {
+                    String namafile="./"+reportDirName+"/"+reportName;
+                    File f = new File("./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, connect);
+                    JasperExportManager.exportReportToPdfFile(jasperPrint,"./"+reportDirLoc+"/"+name);
+//                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+//                    jasperViewer.setTitle(judul);
+//                    Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+//                    jasperViewer.setSize(screen.width-50,screen.height-50);
+//                    jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+//                    jasperViewer.setLocationRelativeTo(null);
+//                    jasperViewer.setVisible(true);
+                    // Desktop.getDesktop().open(f);
+                } catch (Exception rptexcpt) {
+                    System.out.println("Report Can't view because : " + rptexcpt);
+                    JOptionPane.showMessageDialog(null,"Report Can't view because : "+ rptexcpt);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
     
     //Function untuk report query print jasper secara otomatis pilih
     public void MyReportqry(String reportName,String reportDirName,String judul,String qry,Map parameters){
