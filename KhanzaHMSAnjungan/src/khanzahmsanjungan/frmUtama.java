@@ -26,6 +26,8 @@ public class frmUtama extends javax.swing.JFrame {
     private final sekuel Sequel=new sekuel();
     private final validasi Valid=new validasi();
     private String validasiregistrasi=Sequel.cariIsi("select set_validasi_registrasi.wajib_closing_kasir from set_validasi_registrasi");
+    private String cek_booking_registrasi, cek_reg_periksa = "";
+    Integer sisahari = 0;
         
     /** Creates new form frmUtama */
     public frmUtama() {
@@ -251,60 +253,62 @@ public class frmUtama extends javax.swing.JFrame {
                      if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",TCari.getText())>0){
                          JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(TCari.getText());
-                         pilih.tampil();
-                         pilih.setVisible(true);
+//                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                         pilih.setLocationRelativeTo(this);
+//                         pilih.setPasien(TCari.getText());
+//                         pilih.tampil();
+//                         pilih.setVisible(true);
+                           cek_pendaftaran(TCari.getText().trim());
                      }
                  }else{
-                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                     pilih.setLocationRelativeTo(this);
-                     pilih.setPasien(TCari.getText());
-                     pilih.tampil();
-                     pilih.setVisible(true);
+//                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                     pilih.setLocationRelativeTo(this);
+//                     pilih.setPasien(TCari.getText());
+//                     pilih.tampil();
+//                     pilih.setVisible(true);
+                       cek_pendaftaran(TCari.getText().trim());
                  }  
             }else if(Sequel.cariInteger("select count(no_ktp) from pasien where no_ktp=?",TCari.getText().trim())>0){
                  if(validasiregistrasi.equals("Yes")){
                      if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()))>0){
                          JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true);
+//                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                         pilih.setLocationRelativeTo(this);
+//                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+//                         pilih.tampil();
+//                         pilih.setVisible(true);
                      }
                  }else{
-                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                     pilih.setLocationRelativeTo(this);
-                     pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                     pilih.tampil();
-                     pilih.setVisible(true);
+//                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                     pilih.setLocationRelativeTo(this);
+//                     pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+//                     pilih.tampil();
+//                     pilih.setVisible(true);
                  }
             }else if(Sequel.cariInteger("select count(no_peserta) from pasien where no_peserta=?",TCari.getText().trim())>0){
                  if(validasiregistrasi.equals("Yes")){
                      if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()))>0){
                          JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true);
+//                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                         pilih.setLocationRelativeTo(this);
+//                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+//                         pilih.tampil();
+//                         pilih.setVisible(true);
                      }
                  }else{
-                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                     pilih.setLocationRelativeTo(this);
-                     pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                     pilih.tampil();
-                     pilih.setVisible(true); 
+//                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+//                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+//                     pilih.setLocationRelativeTo(this);
+//                     pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+//                     pilih.tampil();
+//                     pilih.setVisible(true); 
                  }
             }else{
                 JOptionPane.showMessageDialog(rootPane,
@@ -340,4 +344,30 @@ public class frmUtama extends javax.swing.JFrame {
     private component.Panel jPanel3;
     private usu.widget.glass.PanelGlass panel1;
     // End of variables declaration//GEN-END:variables
+
+    private void cek_pendaftaran(String noRm){
+        //notifikasi pasien daftar ganda pada hari yang sama
+        cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
+        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
+        if(cek_reg_periksa.equals("")){
+            if(cek_booking_registrasi.equals("")){
+                JOptionPane.showMessageDialog(null,"Anda belum booking melalui aplikasi, silahkan isi data setelah berikut ini.");
+                DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+                pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+                pilih.setLocationRelativeTo(this);
+                pilih.setPasien(TCari.getText());
+                pilih.tampil();
+                pilih.setVisible(true);
+            }else if(sisahari<=15){
+                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
+            }else{
+                JOptionPane.showMessageDialog(null, "lanjutkan");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Pasien Sudah Terdaftar ..!!");
+        }
+        
+        
+    }
 }
