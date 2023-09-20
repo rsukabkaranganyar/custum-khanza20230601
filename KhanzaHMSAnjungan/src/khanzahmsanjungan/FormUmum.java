@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class frmUtama extends javax.swing.JFrame {
+public class FormUmum extends javax.swing.JFrame {
     private final sekuel Sequel=new sekuel();
     private final validasi Valid=new validasi();
     private String validasiregistrasi=Sequel.cariIsi("select set_validasi_registrasi.wajib_closing_kasir from set_validasi_registrasi");
@@ -30,7 +30,7 @@ public class frmUtama extends javax.swing.JFrame {
     Integer sisahari = 0;
         
     /** Creates new form frmUtama */
-    public frmUtama() {
+    public FormUmum() {
         initComponents();
         setIconImage(new ImageIcon(super.getClass().getResource("/picture/addressbook-edit24.png")).getImage());      
         this.setSize(screen.width,screen.height);
@@ -50,24 +50,39 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel2 = new component.Label();
         jPanel3 = new component.Panel();
         jLabel3 = new component.Label();
+        jPanel4 = new javax.swing.JPanel();
         panel1 = new usu.widget.glass.PanelGlass();
         jLabel6 = new component.Label();
         TCari = new component.TextBox();
         btnCari = new component.Button();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ SIMRS KhanzaHMS, Sub Menu Anjungan Registrasi Mandiri Pasien ]::");
+        setBackground(java.awt.Color.white);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
         jPanel1.setBackground(new java.awt.Color(130, 50, 130));
         jPanel1.setBorder(null);
+        jPanel1.setForeground(java.awt.Color.white);
         jPanel1.setPreferredSize(new java.awt.Dimension(560, 55));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -88,6 +103,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(130, 50, 130));
         jPanel3.setBorder(null);
+        jPanel3.setForeground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(560, 30));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -98,6 +114,10 @@ public class frmUtama extends javax.swing.JFrame {
         jPanel3.add(jLabel3, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel4.setBackground(java.awt.Color.white);
+        jPanel4.setForeground(java.awt.Color.white);
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
         panel1.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/wallpaper.jpg"))); // NOI18N
@@ -112,7 +132,7 @@ public class frmUtama extends javax.swing.JFrame {
         panel1.setLayout(flowLayout1);
 
         jLabel6.setForeground(new java.awt.Color(130, 80, 130));
-        jLabel6.setText("No.RM/KTP/Asuransi/JKN Pasien :");
+        jLabel6.setText("No.RM/KTP Pasien :");
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel6.setIconTextGap(10);
@@ -152,7 +172,146 @@ public class frmUtama extends javax.swing.JFrame {
         });
         panel1.add(btnCari);
 
-        getContentPane().add(panel1, java.awt.BorderLayout.CENTER);
+        jPanel4.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 15, 1170, 130));
+
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(java.awt.Color.white);
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setForeground(java.awt.Color.black);
+        jButton1.setText("3");
+        jButton1.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 110, 110));
+
+        jButton2.setBackground(java.awt.Color.white);
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton2.setForeground(java.awt.Color.black);
+        jButton2.setText("1");
+        jButton2.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 110, 110));
+
+        jButton3.setBackground(java.awt.Color.white);
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton3.setForeground(java.awt.Color.black);
+        jButton3.setText("2");
+        jButton3.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 110, 110));
+
+        jButton4.setBackground(java.awt.Color.white);
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton4.setForeground(java.awt.Color.black);
+        jButton4.setText("6");
+        jButton4.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 110, 110));
+
+        jButton5.setBackground(java.awt.Color.white);
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton5.setForeground(java.awt.Color.black);
+        jButton5.setText("4");
+        jButton5.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 110));
+
+        jButton6.setBackground(java.awt.Color.white);
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton6.setForeground(java.awt.Color.black);
+        jButton6.setText("5");
+        jButton6.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 110, 110));
+
+        jButton7.setBackground(java.awt.Color.white);
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton7.setForeground(java.awt.Color.black);
+        jButton7.setText("<-");
+        jButton7.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 110, 110));
+
+        jButton8.setBackground(java.awt.Color.white);
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton8.setForeground(java.awt.Color.black);
+        jButton8.setText("7");
+        jButton8.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, 110));
+
+        jButton9.setBackground(java.awt.Color.white);
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton9.setForeground(java.awt.Color.black);
+        jButton9.setText("0");
+        jButton9.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 110, 110));
+
+        jButton10.setBackground(java.awt.Color.white);
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton10.setForeground(java.awt.Color.black);
+        jButton10.setText("8");
+        jButton10.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 110, 110));
+
+        jButton11.setBackground(java.awt.Color.white);
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton11.setForeground(java.awt.Color.black);
+        jButton11.setText("9");
+        jButton11.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 110, 110));
+
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 590, 520));
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -325,23 +484,94 @@ public class frmUtama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCariKeyPressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"3");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"1");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"2");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"6");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"4");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"5");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String tmp = TCari.getText();
+        StringBuffer sb= new StringBuffer(tmp);  
+        sb.deleteCharAt(sb.length()-1);  
+        String str = sb.toString();
+        TCari.setText(str);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"7");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"0");
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"8");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"9");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new frmUtama().setVisible(true);
+            new FormUmum().setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.TextBox TCari;
     private component.Button btnCari;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private component.Label jLabel1;
     private component.Label jLabel2;
     private component.Label jLabel3;
     private component.Label jLabel6;
     private component.Panel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private component.Panel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private usu.widget.glass.PanelGlass panel1;
     // End of variables declaration//GEN-END:variables
 
