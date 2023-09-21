@@ -41,7 +41,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
     private String umur="0",sttsumur="Th";
     private DlgPilihBayar pilihbayar=new DlgPilihBayar(null,true);
-    private String status="Baru",BASENOREG="",URUTNOREG="",aktifjadwal="";
+    private String status="Baru",BASENOREG="",URUTNOREG="",aktifjadwal="", cek_booking_registrasi="";
     private Properties prop = new Properties();
 
     /** Creates new form DlgAdmin
@@ -713,13 +713,20 @@ public class DlgRegistrasi extends javax.swing.JDialog {
             LblKdDokter.getText(),LblNoRm.getText(),LblKdPoli.getText(),PngJawab.getText(),
             AlamatPngJawab.getText(),HubunganPngJawab.getText(),Biaya.getText(),"Belum",
             Status.getText(),"Ralan",KdBayar.getText(),umur,sttsumur,"Belum Bayar",status})==true){
-                UpdateUmur();
-                DlgCetak cetak=new DlgCetak(null,true);
-                cetak.setSize(this.getWidth(),this.getHeight());
-                cetak.setLocationRelativeTo(this);
-                cetak.setPasien(LblNoRawat.getText(),LblNamaPoli.getText(),LblNoReg.getText(),LblNama.getText(),
-                        LblNoRm.getText(),LblDokter.getText(),NmBayar.getText(),PngJawab.getText());
-                cetak.setVisible(true);
+//                update database booking
+            cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",LblNoRm.getText());
+            if(cek_booking_registrasi.equals("")){
+                System.out.println("tidak ada booking");
+            }else{
+                Sequel.queryu("UPDATE booking_registrasi SET status = 'Terdaftar' WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) AND no_rkm_medis = ?;", LblNoRm.getText());
+            }
+            UpdateUmur();
+            DlgCetak cetak=new DlgCetak(null,true);
+            cetak.setSize(this.getWidth(),this.getHeight());
+            cetak.setLocationRelativeTo(this);
+            cetak.setPasien(LblNoRawat.getText(),LblNamaPoli.getText(),LblNoReg.getText(),LblNama.getText(),
+                    LblNoRm.getText(),LblDokter.getText(),NmBayar.getText(),PngJawab.getText());
+            cetak.setVisible(true);
         }else{
             LblJam.setText(Sequel.cariIsi("select current_time()"));
             isNumber();

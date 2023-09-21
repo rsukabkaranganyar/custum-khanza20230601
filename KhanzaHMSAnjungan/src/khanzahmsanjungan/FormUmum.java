@@ -481,9 +481,13 @@ public class FormUmum extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
+        String norm = TCari.getText();
         if(TCari.getText().trim().equals("")){
             JOptionPane.showMessageDialog(rootPane,"<html><div align='center'><font size='5' face='Tahoma' color='#825082'>Silahkan masukkan No.RM/KTP/Asuransi/JKN !!!</font></div></html>");
-        }else{
+        }else if(norm.length() < 6){
+            JOptionPane.showMessageDialog(rootPane,"<html><div align='center'><font size='5' face='Tahoma' color='#825082'>No RM kurang dari 6 digit. </font></div></html>");
+        }
+        else{
             if(Sequel.cariInteger("select count(no_rkm_medis) from pasien where no_rkm_medis=?",TCari.getText().trim())>0){
                  if(validasiregistrasi.equals("Yes")){
                      if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",TCari.getText())>0){
