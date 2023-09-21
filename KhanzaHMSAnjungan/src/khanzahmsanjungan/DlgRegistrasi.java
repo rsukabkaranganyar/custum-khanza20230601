@@ -893,7 +893,8 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                         sttsumur="Hr";
                     }
                 }
-                KdBayar.setText(rs.getString("kd_pj"));
+//                KdBayar.setText(rs.getString("kd_pj"));
+                KdBayar.setText("01"); //UMUM
                 NmBayar.setText(Sequel.cariIsi("select penjab.png_jawab from penjab where penjab.kd_pj=?",KdBayar.getText()));
             }
         } catch (Exception e) {
@@ -912,6 +913,59 @@ public class DlgRegistrasi extends javax.swing.JDialog {
         LblTanggal.setText(Tanggal.getSelectedItem().toString());
         LblJam.setText(Sequel.cariIsi("select current_time()"));
         isNumber();
+        LblNoReg.setText(NoReg.getText());
+        LblNoRawat.setText(NoRawat.getText());
+    }
+    
+    public void setPasien(String norm){
+        LblNoRm.setText(norm);
+        try {
+            ps.setString(1,Valid.SetTgl(Tanggal.getSelectedItem()+""));
+            ps.setString(2,norm);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                LblNama.setText(rs.getString("nm_pasien"));
+                PngJawab.setText(rs.getString("namakeluarga"));
+                HubunganPngJawab.setText(rs.getString("keluarga"));
+                AlamatPngJawab.setText(rs.getString("asal"));
+                Status.setText(rs.getString("daftar"));
+                umur="0";
+                sttsumur="Th";
+                if(rs.getInt("tahun")>0){
+                    umur=rs.getString("tahun");
+                    sttsumur="Th";
+                }else if(rs.getInt("tahun")==0){
+                    if(rs.getInt("bulan")>0){
+                        umur=rs.getString("bulan");
+                        sttsumur="Bl";
+                    }else if(rs.getInt("bulan")==0){
+                        umur=rs.getString("hari");
+                        sttsumur="Hr";
+                    }
+                }
+//                KdBayar.setText(rs.getString("kd_pj"));
+                KdBayar.setText("01"); //UMUM
+                NmBayar.setText(Sequel.cariIsi("select penjab.png_jawab from penjab where penjab.kd_pj=?",KdBayar.getText()));
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi a : "+e);
+        }
+//        query get poli dan dokter
+        LblNamaPoli.setText(Sequel.cariIsi("SELECT poliklinik.nm_poli FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm));
+        String kdpoli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm);
+        String kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm);
+        if(Status.getText().equals("Baru")){
+            Biaya.setText(""+Sequel.cariIsiAngka("select poliklinik.registrasi from poliklinik where poliklinik.kd_poli=?",kdpoli));
+        }else{
+            Biaya.setText(""+Sequel.cariIsiAngka("select poliklinik.registrasilama from poliklinik where poliklinik.kd_poli=?",kdpoli));
+        }
+        LblKdDokter.setText(kddokter);
+        LblDokter.setText(Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",kddokter));
+        Tanggal.setDate(new Date());
+        LblTanggal.setText(Tanggal.getSelectedItem().toString());
+        LblJam.setText(Sequel.cariIsi("select current_time()"));
+        isNumber();
+        LblKdPoli.setText(kdpoli);
         LblNoReg.setText(NoReg.getText());
         LblNoRawat.setText(NoRawat.getText());
     }

@@ -54,7 +54,7 @@ public class FormUmum extends javax.swing.JFrame {
         panel1 = new usu.widget.glass.PanelGlass();
         jLabel6 = new component.Label();
         TCari = new component.TextBox();
-        btnCari = new component.Button();
+        BtnCari = new component.Button();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -67,6 +67,7 @@ public class FormUmum extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        btnKembali = new component.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ SIMRS KhanzaHMS, Sub Menu Anjungan Registrasi Mandiri Pasien ]::");
@@ -153,26 +154,26 @@ public class FormUmum extends javax.swing.JFrame {
         });
         panel1.add(TCari);
 
-        btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        btnCari.setMnemonic('O');
-        btnCari.setToolTipText("Alt+O");
-        btnCari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCari.setIconTextGap(0);
-        btnCari.setMargin(new java.awt.Insets(0, 3, 0, 0));
-        btnCari.setPreferredSize(new java.awt.Dimension(45, 45));
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
+        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari.setMnemonic('O');
+        BtnCari.setToolTipText("Alt+O");
+        BtnCari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnCari.setIconTextGap(0);
+        BtnCari.setMargin(new java.awt.Insets(0, 3, 0, 0));
+        BtnCari.setPreferredSize(new java.awt.Dimension(45, 45));
+        BtnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
+                BtnCariActionPerformed(evt);
             }
         });
-        btnCari.addKeyListener(new java.awt.event.KeyAdapter() {
+        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnCariKeyPressed(evt);
+                BtnCariKeyPressed(evt);
             }
         });
-        panel1.add(btnCari);
+        panel1.add(BtnCari);
 
-        jPanel4.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 15, 1170, 130));
+        jPanel4.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1230, 110));
 
         jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -309,9 +310,25 @@ public class FormUmum extends javax.swing.JFrame {
         });
         jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 110, 110));
 
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 590, 520));
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 650, 510));
 
-        getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_START);
+        btnKembali.setBackground(new java.awt.Color(130, 50, 130));
+        btnKembali.setForeground(java.awt.Color.white);
+        btnKembali.setMnemonic('O');
+        btnKembali.setText("Kembali Ke Menu Awal");
+        btnKembali.setToolTipText("Alt+O");
+        btnKembali.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnKembali.setIconTextGap(0);
+        btnKembali.setMargin(new java.awt.Insets(0, 3, 0, 0));
+        btnKembali.setPreferredSize(new java.awt.Dimension(45, 45));
+        btnKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembaliActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 320, -1));
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -330,60 +347,62 @@ public class FormUmum extends javax.swing.JFrame {
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",TCari.getText())>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(TCari.getText());
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(TCari.getText());
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
+                               cek_pendaftaran(TCari.getText().trim());
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(TCari.getText());
-                         pilih.tampil();
-                         pilih.setVisible(true);
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(TCari.getText());
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true);
+                           cek_pendaftaran(TCari.getText().trim());
                      }  
                 }else if(Sequel.cariInteger("select count(no_ktp) from pasien where no_ktp=?",TCari.getText().trim())>0){
                      if(validasiregistrasi.equals("Yes")){
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()))>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true);
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true);
                      }
                 }else if(Sequel.cariInteger("select count(no_peserta) from pasien where no_peserta=?",TCari.getText().trim())>0){
                      if(validasiregistrasi.equals("Yes")){
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()))>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true); 
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true); 
                      }
                 }else{
                     JOptionPane.showMessageDialog(rootPane,
@@ -403,7 +422,65 @@ public class FormUmum extends javax.swing.JFrame {
         TCari.setText("");
     }//GEN-LAST:event_formWindowActivated
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"3");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"1");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"2");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"6");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"4");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"5");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String tmp = TCari.getText();
+        StringBuffer sb= new StringBuffer(tmp);  
+        sb.deleteCharAt(sb.length()-1);  
+        String str = sb.toString();
+        TCari.setText(str);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"7");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"0");
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"8");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"9");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
         if(TCari.getText().trim().equals("")){
             JOptionPane.showMessageDialog(rootPane,"<html><div align='center'><font size='5' face='Tahoma' color='#825082'>Silahkan masukkan No.RM/KTP/Asuransi/JKN !!!</font></div></html>");
         }else{
@@ -476,71 +553,17 @@ public class FormUmum extends javax.swing.JFrame {
                 TCari.requestFocus();
             }
         }
-    }//GEN-LAST:event_btnCariActionPerformed
+    }//GEN-LAST:event_BtnCariActionPerformed
 
-    private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            btnCariActionPerformed(null);
-        }
-    }//GEN-LAST:event_btnCariKeyPressed
+    private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCariKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"3");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"1");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"2");
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"6");
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"4");
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"5");
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        String tmp = TCari.getText();
-        StringBuffer sb= new StringBuffer(tmp);  
-        sb.deleteCharAt(sb.length()-1);  
-        String str = sb.toString();
-        TCari.setText(str);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"7");
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"0");
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"8");
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        String tmp = TCari.getText();
-        TCari.setText(tmp+"9");
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        welcomeScreen menuUtama = new welcomeScreen();
+        menuUtama.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -551,8 +574,9 @@ public class FormUmum extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.Button BtnCari;
     private component.TextBox TCari;
-    private component.Button btnCari;
+    private component.Button btnKembali;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -578,7 +602,7 @@ public class FormUmum extends javax.swing.JFrame {
     private void cek_pendaftaran(String noRm){
         //notifikasi pasien daftar ganda pada hari yang sama
         cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
-        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
         if(cek_reg_periksa.equals("")){
             if(cek_booking_registrasi.equals("")){
@@ -589,11 +613,19 @@ public class FormUmum extends javax.swing.JFrame {
                 pilih.setPasien(TCari.getText());
                 pilih.tampil();
                 pilih.setVisible(true);
-            }else if(sisahari<=15){
-                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
             }else{
-                JOptionPane.showMessageDialog(null, "lanjutkan");
+                JOptionPane.showMessageDialog(null,"Anda sudah booking. ");
+                DlgRegistrasi pilih=new DlgRegistrasi(null,true);
+                pilih.setSize(this.getWidth(),this.getHeight());
+                pilih.setLocationRelativeTo(this);
+                pilih.setPasien(noRm);
+                pilih.setVisible(true);
             }
+//            else if(sisahari<=15){
+//                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
+//            }else{
+//                JOptionPane.showMessageDialog(null, "lanjutkan");
+//            }
         }else{
             JOptionPane.showMessageDialog(null,"Pasien Sudah Terdaftar ..!!");
         }

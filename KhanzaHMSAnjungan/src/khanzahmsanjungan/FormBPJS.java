@@ -50,13 +50,28 @@ public class FormBPJS extends javax.swing.JFrame {
         jLabel2 = new component.Label();
         jPanel3 = new component.Panel();
         jLabel3 = new component.Label();
+        jPanel4 = new javax.swing.JPanel();
         panel1 = new usu.widget.glass.PanelGlass();
         jLabel6 = new component.Label();
         TCari = new component.TextBox();
         btnCari = new component.Button();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        btnKembali = new component.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ SIMRS KhanzaHMS, Sub Menu Anjungan Registrasi Mandiri Pasien ]::");
+        setBackground(java.awt.Color.white);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -68,6 +83,7 @@ public class FormBPJS extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(130, 50, 130));
         jPanel1.setBorder(null);
+        jPanel1.setForeground(java.awt.Color.white);
         jPanel1.setPreferredSize(new java.awt.Dimension(560, 55));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -88,6 +104,7 @@ public class FormBPJS extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(130, 50, 130));
         jPanel3.setBorder(null);
+        jPanel3.setForeground(java.awt.Color.white);
         jPanel3.setPreferredSize(new java.awt.Dimension(560, 30));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -98,6 +115,10 @@ public class FormBPJS extends javax.swing.JFrame {
         jPanel3.add(jLabel3, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel4.setBackground(java.awt.Color.white);
+        jPanel4.setForeground(java.awt.Color.white);
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
         panel1.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/wallpaper.jpg"))); // NOI18N
@@ -112,7 +133,7 @@ public class FormBPJS extends javax.swing.JFrame {
         panel1.setLayout(flowLayout1);
 
         jLabel6.setForeground(new java.awt.Color(130, 80, 130));
-        jLabel6.setText("No.RM/KTP/Asuransi/JKN Pasien :");
+        jLabel6.setText("No.RM/KTP Pasien :");
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel6.setIconTextGap(10);
@@ -152,7 +173,162 @@ public class FormBPJS extends javax.swing.JFrame {
         });
         panel1.add(btnCari);
 
-        getContentPane().add(panel1, java.awt.BorderLayout.CENTER);
+        jPanel4.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1230, 110));
+
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(java.awt.Color.white);
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton1.setForeground(java.awt.Color.black);
+        jButton1.setText("3");
+        jButton1.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 110, 110));
+
+        jButton2.setBackground(java.awt.Color.white);
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton2.setForeground(java.awt.Color.black);
+        jButton2.setText("1");
+        jButton2.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 110, 110));
+
+        jButton3.setBackground(java.awt.Color.white);
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton3.setForeground(java.awt.Color.black);
+        jButton3.setText("2");
+        jButton3.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 110, 110));
+
+        jButton4.setBackground(java.awt.Color.white);
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton4.setForeground(java.awt.Color.black);
+        jButton4.setText("6");
+        jButton4.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 110, 110));
+
+        jButton5.setBackground(java.awt.Color.white);
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton5.setForeground(java.awt.Color.black);
+        jButton5.setText("4");
+        jButton5.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 110));
+
+        jButton6.setBackground(java.awt.Color.white);
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton6.setForeground(java.awt.Color.black);
+        jButton6.setText("5");
+        jButton6.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 110, 110));
+
+        jButton7.setBackground(java.awt.Color.white);
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton7.setForeground(java.awt.Color.black);
+        jButton7.setText("<-");
+        jButton7.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 110, 110));
+
+        jButton8.setBackground(java.awt.Color.white);
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton8.setForeground(java.awt.Color.black);
+        jButton8.setText("7");
+        jButton8.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, 110));
+
+        jButton9.setBackground(java.awt.Color.white);
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton9.setForeground(java.awt.Color.black);
+        jButton9.setText("0");
+        jButton9.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 110, 110));
+
+        jButton10.setBackground(java.awt.Color.white);
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton10.setForeground(java.awt.Color.black);
+        jButton10.setText("8");
+        jButton10.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 110, 110));
+
+        jButton11.setBackground(java.awt.Color.white);
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton11.setForeground(java.awt.Color.black);
+        jButton11.setText("9");
+        jButton11.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 110, 110));
+
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 650, 510));
+
+        btnKembali.setBackground(new java.awt.Color(130, 50, 130));
+        btnKembali.setForeground(java.awt.Color.white);
+        btnKembali.setMnemonic('O');
+        btnKembali.setText("Kembali Ke Menu Awal");
+        btnKembali.setToolTipText("Alt+O");
+        btnKembali.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnKembali.setIconTextGap(0);
+        btnKembali.setMargin(new java.awt.Insets(0, 3, 0, 0));
+        btnKembali.setPreferredSize(new java.awt.Dimension(45, 45));
+        btnKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembaliActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 320, -1));
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -171,60 +347,62 @@ public class FormBPJS extends javax.swing.JFrame {
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",TCari.getText())>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(TCari.getText());
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(TCari.getText());
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
+                               cek_pendaftaran(TCari.getText().trim());
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(TCari.getText());
-                         pilih.tampil();
-                         pilih.setVisible(true);
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(TCari.getText());
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true);
+                           cek_pendaftaran(TCari.getText().trim());
                      }  
                 }else if(Sequel.cariInteger("select count(no_ktp) from pasien where no_ktp=?",TCari.getText().trim())>0){
                      if(validasiregistrasi.equals("Yes")){
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()))>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true);
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(Sequel.cariIsi("select no_rkm_medis from pasien where no_ktp=?",TCari.getText().trim()));
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true);
                      }
                 }else if(Sequel.cariInteger("select count(no_peserta) from pasien where no_peserta=?",TCari.getText().trim())>0){
                      if(validasiregistrasi.equals("Yes")){
                          if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()))>0){
                              JOptionPane.showMessageDialog(rootPane,"Maaf, pasien pada kunjungan sebelumnya memiliki tagihan yang belum di closing.\nSilahkan konfirmasi dengan pihak kasir.. !!");
                          }else{
-                             DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                             pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                             pilih.setLocationRelativeTo(this);
-                             pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                             pilih.tampil();
-                             pilih.setVisible(true);
+    //                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                         pilih.setLocationRelativeTo(this);
+    //                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+    //                         pilih.tampil();
+    //                         pilih.setVisible(true);
                          }
                      }else{
-                         DlgPilihPoli pilih=new DlgPilihPoli(this,true);
-                         pilih.setSize(this.getWidth()-20,this.getHeight()-70);
-                         pilih.setLocationRelativeTo(this);
-                         pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
-                         pilih.tampil();
-                         pilih.setVisible(true); 
+    //                     DlgPilihPoli pilih=new DlgPilihPoli(this,true);
+    //                     pilih.setSize(this.getWidth()-20,this.getHeight()-70);
+    //                     pilih.setLocationRelativeTo(this);
+    //                     pilih.setPasien(Sequel.cariIsi("select pasien.no_rkm_medis from pasien where pasien.no_peserta=?",TCari.getText().trim()));
+    //                     pilih.tampil();
+    //                     pilih.setVisible(true); 
                      }
                 }else{
                     JOptionPane.showMessageDialog(rootPane,
@@ -243,6 +421,64 @@ public class FormBPJS extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         TCari.setText("");
     }//GEN-LAST:event_formWindowActivated
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"3");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"1");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"2");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"6");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"4");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"5");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String tmp = TCari.getText();
+        StringBuffer sb= new StringBuffer(tmp);  
+        sb.deleteCharAt(sb.length()-1);  
+        String str = sb.toString();
+        TCari.setText(str);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"7");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"0");
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"8");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        String tmp = TCari.getText();
+        TCari.setText(tmp+"9");
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         if(TCari.getText().trim().equals("")){
@@ -320,10 +556,14 @@ public class FormBPJS extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            btnCariActionPerformed(null);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnCariKeyPressed
+
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        welcomeScreen menuUtama = new welcomeScreen();
+        menuUtama.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,19 +576,33 @@ public class FormBPJS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.TextBox TCari;
     private component.Button btnCari;
+    private component.Button btnKembali;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private component.Label jLabel1;
     private component.Label jLabel2;
     private component.Label jLabel3;
     private component.Label jLabel6;
     private component.Panel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private component.Panel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private usu.widget.glass.PanelGlass panel1;
     // End of variables declaration//GEN-END:variables
 
     private void cek_pendaftaran(String noRm){
         //notifikasi pasien daftar ganda pada hari yang sama
         cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
-        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
         if(cek_reg_periksa.equals("")){
             if(cek_booking_registrasi.equals("")){
@@ -359,11 +613,19 @@ public class FormBPJS extends javax.swing.JFrame {
                 pilih.setPasien(TCari.getText());
                 pilih.tampil();
                 pilih.setVisible(true);
-            }else if(sisahari<=15){
-                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
             }else{
-                JOptionPane.showMessageDialog(null, "lanjutkan");
+                JOptionPane.showMessageDialog(null,"Anda sudah booking. ");
+                DlgRegistrasi pilih=new DlgRegistrasi(null,true);
+                pilih.setSize(this.getWidth(),this.getHeight());
+                pilih.setLocationRelativeTo(this);
+                pilih.setPasien(noRm);
+                pilih.setVisible(true);
             }
+//            else if(sisahari<=15){
+//                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
+//            }else{
+//                JOptionPane.showMessageDialog(null, "lanjutkan");
+//            }
         }else{
             JOptionPane.showMessageDialog(null,"Pasien Sudah Terdaftar ..!!");
         }
