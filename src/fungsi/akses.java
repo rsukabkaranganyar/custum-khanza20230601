@@ -2124,6 +2124,9 @@ public final class akses {
                         akses.penilaian_awal_medis_ralan_bedah_mulut=rs2.getBoolean("penilaian_awal_medis_ralan_bedah_mulut");
                         akses.penilaian_pasien_keracunan=rs2.getBoolean("penilaian_pasien_keracunan");
                         akses.pemantauan_meows_obstetri=rs2.getBoolean("pemantauan_meows_obstetri");
+                        akses.workstation=true;
+                        akses.workstationconfiglist=true;
+                        akses.workstationsetup=true;
                     }else if((rs.getRow()==0)&&(rs2.getRow()==0)){
                         akses.kode="";                  
                         akses.penyakit= false;
@@ -3071,6 +3074,9 @@ public final class akses {
                         akses.penilaian_awal_medis_ralan_bedah_mulut=false;
                         akses.penilaian_pasien_keracunan=false;
                         akses.pemantauan_meows_obstetri=false;
+                        akses.workstation=false;
+                        akses.workstationconfiglist=false;
+                        akses.workstationsetup=false;
                     }
                 } catch (Exception e) {
                     System.out.println("Notifikasi : "+e);

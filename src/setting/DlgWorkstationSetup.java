@@ -123,13 +123,13 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
             public void windowClosing(WindowEvent e) {}
             @Override
             public void windowClosed(WindowEvent e) {
-                if(akses.getform().equals("DlgWorkstationSetup")){
+//                if(akses.getform().equals("DlgWorkstationSetup")){
                     if(workstation_list.getTable().getSelectedRow()!= -1){  
                         txtIdConfig.setText(workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),0).toString());
                         txtNamaConfig.setText(workstation_list.getTable().getValueAt(workstation_list.getTable().getSelectedRow(),1).toString());
                     }  
                     txtPrinterSharing.requestFocus();
-                }
+//                }
             }
             @Override
             public void windowIconified(WindowEvent e) {}
@@ -710,12 +710,12 @@ public class DlgWorkstationSetup extends javax.swing.JDialog {
     private void btnSearchConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchConfigActionPerformed
         pilihan=1;
         akses.setform("DlgWorkstationSetup");
-        if(akses.getkode().equals("Admin Utama")){
+//        if(akses.getkode().equals("Admin Utama")){
 //            workstation.TCari.requestFocus();
             workstation_list.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
             workstation_list.setLocationRelativeTo(internalFrame1);
             workstation_list.setVisible(true);
-        }
+//        }
     }//GEN-LAST:event_btnSearchConfigActionPerformed
 
     private void txtIdConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdConfigActionPerformed

@@ -13,6 +13,8 @@ package khanzahmsanjungan;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
+import fungsi.validasi2;
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -23,8 +25,11 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -36,6 +41,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
+    private validasi2 Valid2=new validasi2();
     private PreparedStatement ps;
     private ResultSet rs;
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
@@ -43,6 +49,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     private DlgPilihBayar pilihbayar=new DlgPilihBayar(null,true);
     private String status="Baru",BASENOREG="",URUTNOREG="",aktifjadwal="", cek_booking_registrasi="";
     private Properties prop = new Properties();
+    private String nama_instansi, alamat_instansi, kabupaten, propinsi,kontak,email;
 
     /** Creates new form DlgAdmin
      * @param parent
@@ -64,6 +71,21 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                         "where pasien.no_rkm_medis=?"); 
         }catch(Exception ex){
             System.out.println(ex);
+        }
+        
+        try {
+            ps=koneksi.prepareStatement("select nama_instansi, alamat_instansi, kabupaten, propinsi, aktifkan, wallpaper,kontak,email,logo from setting");
+            rs=ps.executeQuery();
+            while(rs.next()){                
+                nama_instansi=rs.getString("nama_instansi");
+                alamat_instansi=rs.getString("alamat_instansi");
+                kabupaten=rs.getString("kabupaten");
+                propinsi=rs.getString("propinsi");
+                kontak=rs.getString("kontak");
+                email=rs.getString("email");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         
         pilihbayar.getTable().addKeyListener(new KeyListener() {
@@ -721,12 +743,31 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                 Sequel.queryu("UPDATE booking_registrasi SET status = 'Terdaftar' WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) AND no_rkm_medis = ?;", LblNoRm.getText());
             }
             UpdateUmur();
-            DlgCetak cetak=new DlgCetak(null,true);
-            cetak.setSize(this.getWidth(),this.getHeight());
-            cetak.setLocationRelativeTo(this);
-            cetak.setPasien(LblNoRawat.getText(),LblNamaPoli.getText(),LblNoReg.getText(),LblNama.getText(),
-                    LblNoRm.getText(),LblDokter.getText(),NmBayar.getText(),PngJawab.getText());
-            cetak.setVisible(true);
+//            DlgCetak cetak=new DlgCetak(null,true);
+//            cetak.setSize(this.getWidth(),this.getHeight());
+//            cetak.setLocationRelativeTo(this);
+//            cetak.setPasien(LblNoRawat.getText(),LblNamaPoli.getText(),LblNoReg.getText(),LblNama.getText(),
+//                    LblNoRm.getText(),LblDokter.getText(),NmBayar.getText(),PngJawab.getText());
+//            cetak.setVisible(true);
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars",nama_instansi);
+            param.put("alamatrs",alamat_instansi);
+            param.put("kotars",kabupaten);
+            param.put("propinsirs",propinsi);
+            param.put("kontakrs",kontak);
+            param.put("emailrs",email);
+            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
+            Valid2.MyReportqry("rptBarcodeRM18.jasper","report","::[ Label Rekam Medis ]::","select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, "+
+                "pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat, pasien.gol_darah, pasien.pekerjaan,"+
+                "pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,"+
+                "pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj,"+
+                "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamatpj from pasien "+
+                "inner join kelurahan inner join kecamatan inner join kabupaten "+
+                "inner join penjab on pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel "+
+                "and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab  where pasien.no_rkm_medis='"+LblNoRm.getText()+"' ",param);
+            System.out.println(LblNoRm.getText());
+            this.setCursor(Cursor.getDefaultCursor());
         }else{
             LblJam.setText(Sequel.cariIsi("select current_time()"));
             isNumber();

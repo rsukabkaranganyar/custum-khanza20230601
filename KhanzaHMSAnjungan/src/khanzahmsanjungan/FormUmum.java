@@ -26,7 +26,7 @@ public class FormUmum extends javax.swing.JFrame {
     private final sekuel Sequel=new sekuel();
     private final validasi Valid=new validasi();
     private String validasiregistrasi=Sequel.cariIsi("select set_validasi_registrasi.wajib_closing_kasir from set_validasi_registrasi");
-    private String cek_booking_registrasi, cek_reg_periksa = "";
+    private String cek_booking_registrasi, cek_reg_periksa, cek_booking_poli, cek_booking_kddokter = "";
     Integer sisahari = 0;
         
     /** Creates new form frmUtama */
@@ -45,6 +45,7 @@ public class FormUmum extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        labelMR = new javax.swing.JLabel();
         jPanel1 = new component.Panel();
         jLabel1 = new component.Label();
         jLabel2 = new component.Label();
@@ -68,6 +69,8 @@ public class FormUmum extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         btnKembali = new component.Button();
+
+        labelMR.setText("labelMR");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ SIMRS KhanzaHMS, Sub Menu Anjungan Registrasi Mandiri Pasien ]::");
@@ -600,6 +603,7 @@ public class FormUmum extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private component.Panel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel labelMR;
     private usu.widget.glass.PanelGlass panel1;
     // End of variables declaration//GEN-END:variables
 
@@ -607,6 +611,8 @@ public class FormUmum extends javax.swing.JFrame {
         //notifikasi pasien daftar ganda pada hari yang sama
         cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
         cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_poli = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_kddokter = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
         if(cek_reg_periksa.equals("")){
             if(cek_booking_registrasi.equals("")){
@@ -614,7 +620,7 @@ public class FormUmum extends javax.swing.JFrame {
                 DlgPilihPoli pilih=new DlgPilihPoli(this,true);
                 pilih.setSize(this.getWidth()-20,this.getHeight()-70);
                 pilih.setLocationRelativeTo(this);
-                pilih.setPasien(TCari.getText());
+                pilih.setPasien(noRm);
                 pilih.tampil();
                 pilih.setVisible(true);
             }else{
@@ -622,7 +628,8 @@ public class FormUmum extends javax.swing.JFrame {
                 DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                 pilih.setSize(this.getWidth(),this.getHeight());
                 pilih.setLocationRelativeTo(this);
-                pilih.setPasien(noRm);
+//                public void setPasien(String norm,String kodepoli,String kddokter)
+                pilih.setPasien(noRm, cek_booking_poli, cek_booking_kddokter);
                 pilih.setVisible(true);
             }
 //            else if(sisahari<=15){
