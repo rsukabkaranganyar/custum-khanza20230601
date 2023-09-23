@@ -25,7 +25,6 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +48,6 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     private DlgPilihBayar pilihbayar=new DlgPilihBayar(null,true);
     private String status="Baru",BASENOREG="",URUTNOREG="",aktifjadwal="", cek_booking_registrasi="";
     private Properties prop = new Properties();
-    private String nama_instansi, alamat_instansi, kabupaten, propinsi,kontak,email;
 
     /** Creates new form DlgAdmin
      * @param parent
@@ -71,21 +69,6 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                         "where pasien.no_rkm_medis=?"); 
         }catch(Exception ex){
             System.out.println(ex);
-        }
-        
-        try {
-            ps=koneksi.prepareStatement("select nama_instansi, alamat_instansi, kabupaten, propinsi, aktifkan, wallpaper,kontak,email,logo from setting");
-            rs=ps.executeQuery();
-            while(rs.next()){                
-                nama_instansi=rs.getString("nama_instansi");
-                alamat_instansi=rs.getString("alamat_instansi");
-                kabupaten=rs.getString("kabupaten");
-                propinsi=rs.getString("propinsi");
-                kontak=rs.getString("kontak");
-                email=rs.getString("email");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
         
         pilihbayar.getTable().addKeyListener(new KeyListener() {
@@ -735,12 +718,12 @@ public class DlgRegistrasi extends javax.swing.JDialog {
             LblKdDokter.getText(),LblNoRm.getText(),LblKdPoli.getText(),PngJawab.getText(),
             AlamatPngJawab.getText(),HubunganPngJawab.getText(),Biaya.getText(),"Belum",
             Status.getText(),"Ralan",KdBayar.getText(),umur,sttsumur,"Belum Bayar",status})==true){
-//                update database booking
-            cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",LblNoRm.getText());
+            // update database booking
+            cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=CURDATE() and booking_registrasi.no_rkm_medis=?",LblNoRm.getText());
             if(cek_booking_registrasi.equals("")){
                 System.out.println("tidak ada booking");
             }else{
-                Sequel.queryu("UPDATE booking_registrasi SET status = 'Terdaftar' WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) AND no_rkm_medis = ?;", LblNoRm.getText());
+                Sequel.queryu("UPDATE booking_registrasi SET status = 'Terdaftar' WHERE booking_registrasi.tanggal_periksa=CURDATE() AND no_rkm_medis = ?;", LblNoRm.getText());
             }
             UpdateUmur();
 //            DlgCetak cetak=new DlgCetak(null,true);
@@ -750,23 +733,28 @@ public class DlgRegistrasi extends javax.swing.JDialog {
 //                    LblNoRm.getText(),LblDokter.getText(),NmBayar.getText(),PngJawab.getText());
 //            cetak.setVisible(true);
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            
             Map<String, Object> param = new HashMap<>();
-            param.put("namars",nama_instansi);
-            param.put("alamatrs",alamat_instansi);
-            param.put("kotars",kabupaten);
-            param.put("propinsirs",propinsi);
-            param.put("kontakrs",kontak);
-            param.put("emailrs",email);
-            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
-            Valid2.MyReportqry("rptBarcodeRM18.jasper","report","::[ Label Rekam Medis ]::","select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, "+
-                "pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat, pasien.gol_darah, pasien.pekerjaan,"+
-                "pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,"+
-                "pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj,"+
-                "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamatpj from pasien "+
-                "inner join kelurahan inner join kecamatan inner join kabupaten "+
-                "inner join penjab on pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel "+
-                "and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab  where pasien.no_rkm_medis='"+LblNoRm.getText()+"' ",param);
+//            param.put("namars",nama_instansi);
+//            param.put("alamatrs",alamat_instansi);
+//            param.put("kotars",kabupaten);
+//            param.put("propinsirs",propinsi);
+//            param.put("kontakrs",kontak);
+//            param.put("emailrs",email);
+//            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
+            Valid2.MyReportqry("rptBarcodeRM18.jasper","report","::[ Label Rekam Medis ]::","SELECT reg_periksa.*, pasien.*, poliklinik.nm_poli, penjab.png_jawab FROM reg_periksa LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli LEFT JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis LEFT JOIN penjab ON reg_periksa.kd_pj = penjab.kd_pj WHERE reg_periksa.no_rkm_medis = '"+LblNoRm.getText()+"'  AND reg_periksa.tgl_registrasi = CURDATE();",param, 6);
+            
+            Map<String, Object> parampaa = new HashMap<>();
+//            param.put("namars",nama_instansi);
+//            param.put("alamatrs",alamat_instansi);
+//            param.put("kotars",kabupaten);
+//            param.put("propinsirs",propinsi);
+//            param.put("kontakrs",kontak);
+//            param.put("emailrs",email);
+//            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
+            Valid2.MyReportqry("rptAnjungan.jasper","report","::[ Label Anjungan ]::","SELECT reg_periksa.no_reg, reg_periksa.no_rkm_medis, pasien.nm_pasien, pasien.jk, poliklinik.nm_poli, reg_periksa.tgl_registrasi FROM reg_periksa LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli LEFT JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis WHERE reg_periksa.no_rkm_medis = '"+LblNoRm.getText()+"' AND reg_periksa.tgl_registrasi = CURDATE()",parampaa, 1);
             System.out.println(LblNoRm.getText());
+           
             this.setCursor(Cursor.getDefaultCursor());
         }else{
             LblJam.setText(Sequel.cariIsi("select current_time()"));
@@ -942,7 +930,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                     }
                 }
 //                KdBayar.setText(rs.getString("kd_pj"));
-                KdBayar.setText("01"); //UMUM
+                KdBayar.setText("01");
                 NmBayar.setText(Sequel.cariIsi("select penjab.png_jawab from penjab where penjab.kd_pj=?",KdBayar.getText()));
             }
         } catch (Exception e) {
@@ -961,59 +949,6 @@ public class DlgRegistrasi extends javax.swing.JDialog {
         LblTanggal.setText(Tanggal.getSelectedItem().toString());
         LblJam.setText(Sequel.cariIsi("select current_time()"));
         isNumber();
-        LblNoReg.setText(NoReg.getText());
-        LblNoRawat.setText(NoRawat.getText());
-    }
-    
-    public void setPasien(String norm){
-        LblNoRm.setText(norm);
-        try {
-            ps.setString(1,Valid.SetTgl(Tanggal.getSelectedItem()+""));
-            ps.setString(2,norm);
-            rs=ps.executeQuery();
-            if(rs.next()){
-                LblNama.setText(rs.getString("nm_pasien"));
-                PngJawab.setText(rs.getString("namakeluarga"));
-                HubunganPngJawab.setText(rs.getString("keluarga"));
-                AlamatPngJawab.setText(rs.getString("asal"));
-                Status.setText(rs.getString("daftar"));
-                umur="0";
-                sttsumur="Th";
-                if(rs.getInt("tahun")>0){
-                    umur=rs.getString("tahun");
-                    sttsumur="Th";
-                }else if(rs.getInt("tahun")==0){
-                    if(rs.getInt("bulan")>0){
-                        umur=rs.getString("bulan");
-                        sttsumur="Bl";
-                    }else if(rs.getInt("bulan")==0){
-                        umur=rs.getString("hari");
-                        sttsumur="Hr";
-                    }
-                }
-//                KdBayar.setText(rs.getString("kd_pj"));
-                KdBayar.setText("01"); //UMUM
-                NmBayar.setText(Sequel.cariIsi("select penjab.png_jawab from penjab where penjab.kd_pj=?",KdBayar.getText()));
-            }
-        } catch (Exception e) {
-            System.out.println("Notifikasi a : "+e);
-        }
-//        query get poli dan dokter
-        LblNamaPoli.setText(Sequel.cariIsi("SELECT poliklinik.nm_poli FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm));
-        String kdpoli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm);
-        String kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi LEFT JOIN poliklinik ON poliklinik.kd_poli = booking_registrasi.kd_poli WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and  booking_registrasi.no_rkm_medis=?", norm);
-        if(Status.getText().equals("Baru")){
-            Biaya.setText(""+Sequel.cariIsiAngka("select poliklinik.registrasi from poliklinik where poliklinik.kd_poli=?",kdpoli));
-        }else{
-            Biaya.setText(""+Sequel.cariIsiAngka("select poliklinik.registrasilama from poliklinik where poliklinik.kd_poli=?",kdpoli));
-        }
-        LblKdDokter.setText(kddokter);
-        LblDokter.setText(Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",kddokter));
-        Tanggal.setDate(new Date());
-        LblTanggal.setText(Tanggal.getSelectedItem().toString());
-        LblJam.setText(Sequel.cariIsi("select current_time()"));
-        isNumber();
-        LblKdPoli.setText(kdpoli);
         LblNoReg.setText(NoReg.getText());
         LblNoRawat.setText(NoRawat.getText());
     }

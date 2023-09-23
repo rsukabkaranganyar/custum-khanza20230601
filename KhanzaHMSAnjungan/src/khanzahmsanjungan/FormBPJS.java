@@ -620,7 +620,7 @@ public class FormBPJS extends javax.swing.JFrame {
                 DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                 pilih.setSize(this.getWidth(),this.getHeight());
                 pilih.setLocationRelativeTo(this);
-                pilih.setPasienBooked(noRm);
+//                pilih.setPasienBooked(noRm);
                 pilih.setVisible(true);
             }
 //            else if(sisahari<=15){

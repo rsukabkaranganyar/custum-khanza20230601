@@ -337,6 +337,7 @@ public class DlgPilihDokter extends javax.swing.JDialog {
 
     private void tbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAdminMouseClicked
         if(tabmode.getRowCount()!=0){
+            System.out.println("LblNoRm: "+LblNoRm.getText()+", LblKdPoli: "+LblKdPoli.getText()+", kddokter: "+tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString());
             try {
                 if(aktifjadwal.equals("aktif")){
                     if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString()+"' and reg_periksa.tgl_registrasi=CURRENT_DATE() ")>=Integer.parseInt(tbAdmin.getValueAt(tbAdmin.getSelectedRow(),2).toString())){

@@ -41,6 +41,8 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.MediaPrintableArea;
+import javax.print.attribute.standard.MediaSize;
+import javax.print.attribute.standard.MediaSizeName;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.print.attribute.standard.PrinterName;
 import javax.swing.JButton;
@@ -85,8 +87,8 @@ public final class validasi2 {
     private final DecimalFormat df3 = new DecimalFormat("######"); 
     private final DecimalFormat df6 = new DecimalFormat("######.###"); 
     private final DecimalFormat df7 = new DecimalFormat("######.#"); 
-    private PreparedStatement ps, ps_workstation;
-    private ResultSet rs, rs_workstation;
+    private PreparedStatement ps;
+    private ResultSet rs;
     private final Calendar now = Calendar.getInstance();
     private final int year=(now.get(Calendar.YEAR));
     private static final Properties prop = new Properties();  
@@ -642,8 +644,11 @@ public final class validasi2 {
     }
     
         //Function untuk report query print jasper secara otomatis pilih
-    public void MyReportqry(String reportName,String reportDirName,String judul,String qry,Map parameters){
+    public void MyReportqry(String reportName,String reportDirName,String judul,String qry,Map parameters, Integer copy){
         Properties systemProp = System.getProperties();
+        PreparedStatement ps_workstation;
+        ResultSet rs_workstation;
+        System.out.println("MyReportqry");
 
         // Ambil current dir
         String currentDir = systemProp.getProperty("user.dir");
@@ -652,11 +657,12 @@ public final class validasi2 {
 
         File fileRpt;
         String fullPath = "";
+        System.out.println("Cek apakah file RptMaster.jrxml ada");
         if (dir.isDirectory()) {
             String[] isiDir = dir.list();
             for (String iDir : isiDir) {
                 fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
-                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jrxml ada
+                if (fileRpt.isFile()) { 
                     fullPath = fileRpt.toString();
                     System.out.println("Found Report File at : " + fullPath);
                 } // end if
@@ -665,7 +671,9 @@ public final class validasi2 {
 
         try {
             ps=connect.prepareStatement(qry);
+            System.out.println("try ps=connect.prepareStatement(qry)");
             try {
+                System.out.println("try JRResultSetDataSource rsdt = new JRResultSetDataSource(rs)");
                 String namafile="./"+reportDirName+"/"+reportName;
                 rs=ps.executeQuery();
                 JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
@@ -688,14 +696,15 @@ public final class validasi2 {
                                    "WHERE w.ip_address  = '"+ip_address+"' AND w.workstation = '"+hostname+"' AND wcl.jasper_report_name = '"+reportName+"'";
                     ps_workstation = connect.prepareStatement(query);
                     rs_workstation = ps_workstation.executeQuery();
-                    rs_workstation.next();
-                    System.out.println("Query: "+query);
-                    System.out.println("Sharing printer: "+rs_workstation.getString("sharing_printer"));
-                    Integer x = rs_workstation.getInt("margin_x");
-                    Integer y = rs_workstation.getInt("margin_y");
-                    Integer width = rs_workstation.getInt("width");
-                    Integer height = rs_workstation.getInt("height");
-                    if (rs_workstation != null) {
+                    System.out.println("try rs_workstation = ps_workstation.executeQuery");
+                    System.out.println("query: "+query);
+                    
+                    if (rs_workstation.next()) {
+                        System.out.println("Sharing printer: "+rs_workstation.getString("sharing_printer"));
+                        Integer x = rs_workstation.getInt("margin_x");
+                        Integer y = rs_workstation.getInt("margin_y");
+                        Integer width = rs_workstation.getInt("width");
+                        Integer height = rs_workstation.getInt("height");
                         //String selectedPrinter = "\\\\10.77.41.99\\Canon LBP2900"; // examlpe to network shared printer
                         
                         String selectedPrinter = rs_workstation.getString("sharing_printer");
@@ -709,10 +718,13 @@ public final class validasi2 {
                         PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
 //                        printRequestAttributeSet.add(MediaSizeName.ISO_A4);
 //                        x,y adalah margin; w, h adalah ukuran kertas (kertas label zebra zd230 menggunakan ukuran 66mm dan 35mm dengan margin 0
-                        if(x != 0 && y != 0){
+                        if(x != 0 && y != 0 && width != 0 && height != 0){
                             printRequestAttributeSet.add(new MediaPrintableArea(x, y, width, height, MediaPrintableArea.MM));
+                        }else{
+                            printRequestAttributeSet.add(MediaSizeName.ISO_A4);
+                            
                         }
-                        printRequestAttributeSet.add(new Copies(1));
+                        printRequestAttributeSet.add(new Copies(copy));
 
                         if (jasperPrint.getOrientationValue() == net.sf.jasperreports.engine.type.OrientationEnum.LANDSCAPE) { 
                           printRequestAttributeSet.add(OrientationRequested.LANDSCAPE); 
