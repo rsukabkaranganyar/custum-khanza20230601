@@ -26,7 +26,7 @@ public class FormUmum extends javax.swing.JFrame {
     private final sekuel Sequel=new sekuel();
     private final validasi Valid=new validasi();
     private String validasiregistrasi=Sequel.cariIsi("select set_validasi_registrasi.wajib_closing_kasir from set_validasi_registrasi");
-    private String cek_booking_registrasi, cek_reg_periksa, cek_booking_poli, cek_booking_kddokter = "";
+    private String cek_booking_registrasi, cek_reg_periksa, cek_booking_poli, cek_booking_kddokter, cek_reg_periksa_poli, cek_reg_periksa_kddokter = "";
     Integer sisahari = 0;
         
     /** Creates new form frmUtama */
@@ -611,8 +611,8 @@ public class FormUmum extends javax.swing.JFrame {
         //notifikasi pasien daftar ganda pada hari yang sama
         cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
         cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
-        cek_booking_poli = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
-        cek_booking_kddokter = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_poli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
         if(cek_reg_periksa.equals("")){
             if(cek_booking_registrasi.equals("")){
@@ -625,12 +625,12 @@ public class FormUmum extends javax.swing.JFrame {
                 pilih.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null,"Anda sudah booking. ");
-                DlgRegistrasi pilih=new DlgRegistrasi(null,true);
-                pilih.setSize(this.getWidth(),this.getHeight());
-                pilih.setLocationRelativeTo(this);
+                DlgRegistrasi regis=new DlgRegistrasi(null,true);
+                regis.setSize(this.getWidth(),this.getHeight());
+                regis.setLocationRelativeTo(this);
 //                public void setPasien(String norm,String kodepoli,String kddokter)
-                pilih.setPasien(noRm, cek_booking_poli, cek_booking_kddokter);
-                pilih.setVisible(true);
+                regis.setPasien(noRm, cek_booking_poli, cek_booking_kddokter, "false");
+                regis.setVisible(true);
             }
 //            else if(sisahari<=15){
 //                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
@@ -639,6 +639,17 @@ public class FormUmum extends javax.swing.JFrame {
 //            }
         }else{
             JOptionPane.showMessageDialog(null,"Pasien Sudah Terdaftar ..!!");
+            DlgRegistrasi regis=new DlgRegistrasi(null,true);
+            regis.setSize(this.getWidth(),this.getHeight());
+            regis.setLocationRelativeTo(this);
+//                public void setPasien(String norm,String kodepoli,String kddokter)
+            cek_reg_periksa_poli = Sequel.cariIsi("SELECT reg_periksa.kd_poli FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and reg_periksa.no_rkm_medis=?",noRm);
+            cek_reg_periksa_kddokter = Sequel.cariIsi("SELECT reg_periksa.kd_dokter FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and reg_periksa.no_rkm_medis=?",noRm);
+            System.out.println("form umum noRm: "+noRm);
+            System.out.println("form umum cek_booking_poli: "+cek_reg_periksa_poli);
+            System.out.println("form umum cek_booking_kddokter: "+cek_reg_periksa_kddokter);
+            regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true");
+            regis.setVisible(true);
         }
         
         
