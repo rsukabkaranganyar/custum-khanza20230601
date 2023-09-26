@@ -26,7 +26,7 @@ public class FormBPJS extends javax.swing.JFrame {
     private final sekuel Sequel=new sekuel();
     private final validasi Valid=new validasi();
     private String validasiregistrasi=Sequel.cariIsi("select set_validasi_registrasi.wajib_closing_kasir from set_validasi_registrasi");
-    private String cek_booking_registrasi, cek_reg_periksa, cek_booking_poli, cek_booking_kddokter = "";
+    private String cek_booking_registrasi, cek_reg_periksa, cek_booking_poli, cek_booking_kddokter, cek_reg_periksa_poli, cek_reg_periksa_kddokter = "";
     Integer sisahari = 0;
         
     /** Creates new form frmUtama */
@@ -45,6 +45,7 @@ public class FormBPJS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        labelMR = new javax.swing.JLabel();
         jPanel1 = new component.Panel();
         jLabel1 = new component.Label();
         jLabel2 = new component.Label();
@@ -54,7 +55,7 @@ public class FormBPJS extends javax.swing.JFrame {
         panel1 = new usu.widget.glass.PanelGlass();
         jLabel6 = new component.Label();
         TCari = new component.TextBox();
-        btnCari = new component.Button();
+        BtnCari = new component.Button();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -68,6 +69,8 @@ public class FormBPJS extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         btnKembali = new component.Button();
+
+        labelMR.setText("labelMR");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ SIMRS KhanzaHMS, Sub Menu Anjungan Registrasi Mandiri Pasien ]::");
@@ -90,7 +93,7 @@ public class FormBPJS extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(254, 184, 254));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/folder.png"))); // NOI18N
-        jLabel1.setText("Anjungan Registrasi BPJS, Silahkan Scan Kartu Pasien Anda !!!");
+        jLabel1.setText("Anjungan Registrasi Mandiri, Silahkan Scan Kartu Pasien Anda !!!");
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel1.setIconTextGap(10);
@@ -154,24 +157,24 @@ public class FormBPJS extends javax.swing.JFrame {
         });
         panel1.add(TCari);
 
-        btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        btnCari.setMnemonic('O');
-        btnCari.setToolTipText("Alt+O");
-        btnCari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCari.setIconTextGap(0);
-        btnCari.setMargin(new java.awt.Insets(0, 3, 0, 0));
-        btnCari.setPreferredSize(new java.awt.Dimension(45, 45));
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
+        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari.setMnemonic('O');
+        BtnCari.setToolTipText("Alt+O");
+        BtnCari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnCari.setIconTextGap(0);
+        BtnCari.setMargin(new java.awt.Insets(0, 3, 0, 0));
+        BtnCari.setPreferredSize(new java.awt.Dimension(45, 45));
+        BtnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
+                BtnCariActionPerformed(evt);
             }
         });
-        btnCari.addKeyListener(new java.awt.event.KeyAdapter() {
+        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnCariKeyPressed(evt);
+                BtnCariKeyPressed(evt);
             }
         });
-        panel1.add(btnCari);
+        panel1.add(BtnCari);
 
         jPanel4.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1230, 110));
 
@@ -480,10 +483,14 @@ public class FormBPJS extends javax.swing.JFrame {
         TCari.setText(tmp+"9");
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
+        String norm = TCari.getText();
         if(TCari.getText().trim().equals("")){
             JOptionPane.showMessageDialog(rootPane,"<html><div align='center'><font size='5' face='Tahoma' color='#825082'>Silahkan masukkan No.RM/KTP/Asuransi/JKN !!!</font></div></html>");
-        }else{
+        }else if(norm.length() < 6){
+            JOptionPane.showMessageDialog(rootPane,"<html><div align='center'><font size='5' face='Tahoma' color='#825082'>No RM kurang dari 6 digit. </font></div></html>");
+        }
+        else{
             if(Sequel.cariInteger("select count(no_rkm_medis) from pasien where no_rkm_medis=?",TCari.getText().trim())>0){
                  if(validasiregistrasi.equals("Yes")){
                      if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and status_bayar='Belum Bayar' and stts<>'Batal'",TCari.getText())>0){
@@ -553,11 +560,11 @@ public class FormBPJS extends javax.swing.JFrame {
                 TCari.requestFocus();
             }
         }
-    }//GEN-LAST:event_btnCariActionPerformed
+    }//GEN-LAST:event_BtnCariActionPerformed
 
-    private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCariKeyPressed
+    private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCariKeyPressed
+    }//GEN-LAST:event_BtnCariKeyPressed
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         welcomeScreen menuUtama = new welcomeScreen();
@@ -574,8 +581,8 @@ public class FormBPJS extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.Button BtnCari;
     private component.TextBox TCari;
-    private component.Button btnCari;
     private component.Button btnKembali;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -596,6 +603,7 @@ public class FormBPJS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private component.Panel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel labelMR;
     private usu.widget.glass.PanelGlass panel1;
     // End of variables declaration//GEN-END:variables
 
@@ -603,8 +611,8 @@ public class FormBPJS extends javax.swing.JFrame {
         //notifikasi pasien daftar ganda pada hari yang sama
         cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
         cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
-        cek_booking_poli = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
-        cek_booking_kddokter = cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_poli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
         if(cek_reg_periksa.equals("")){
             if(cek_booking_registrasi.equals("")){
@@ -612,16 +620,17 @@ public class FormBPJS extends javax.swing.JFrame {
                 DlgPilihPoli pilih=new DlgPilihPoli(this,true);
                 pilih.setSize(this.getWidth()-20,this.getHeight()-70);
                 pilih.setLocationRelativeTo(this);
-                pilih.setPasien(TCari.getText());
+                pilih.setPasien(noRm);
                 pilih.tampil();
                 pilih.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null,"Anda sudah booking. ");
-                DlgRegistrasi pilih=new DlgRegistrasi(null,true);
-                pilih.setSize(this.getWidth(),this.getHeight());
-                pilih.setLocationRelativeTo(this);
-//                pilih.setPasienBooked(noRm);
-                pilih.setVisible(true);
+                DlgRegistrasi regis=new DlgRegistrasi(null,true);
+                regis.setSize(this.getWidth(),this.getHeight());
+                regis.setLocationRelativeTo(this);
+//                public void setPasien(String norm,String kodepoli,String kddokter)
+                regis.setPasien(noRm, cek_booking_poli, cek_booking_kddokter, "false");
+                regis.setVisible(true);
             }
 //            else if(sisahari<=15){
 //                JOptionPane.showMessageDialog(null,"Masa Aktif Rujukan Tersisa : "+ sisahari +" !!!");
@@ -630,8 +639,35 @@ public class FormBPJS extends javax.swing.JFrame {
 //            }
         }else{
             JOptionPane.showMessageDialog(null,"Pasien Sudah Terdaftar ..!!");
+            DlgRegistrasi regis=new DlgRegistrasi(null,true);
+            regis.setSize(this.getWidth(),this.getHeight());
+            regis.setLocationRelativeTo(this);
+//                public void setPasien(String norm,String kodepoli,String kddokter)
+            cek_reg_periksa_poli = Sequel.cariIsi("SELECT reg_periksa.kd_poli FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and reg_periksa.no_rkm_medis=?",noRm);
+            cek_reg_periksa_kddokter = Sequel.cariIsi("SELECT reg_periksa.kd_dokter FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and reg_periksa.no_rkm_medis=?",noRm);
+            System.out.println("form umum noRm: "+noRm);
+            System.out.println("form umum cek_booking_poli: "+cek_reg_periksa_poli);
+            System.out.println("form umum cek_booking_kddokter: "+cek_reg_periksa_kddokter);
+            regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true");
+            regis.setVisible(true);
         }
+    }
+    
+        private void cek_pendaftaran_bpjs(String noRm){
+        //notifikasi pasien daftar ganda pada hari yang sama
+        // cek di booking apakah ada
+        cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         
+        // cek apakah status di booking sudah check in di booking_registrasi dan apakah sudah ada di reg_periksa
         
+        // cek rujukan di bridging_sep, jika blm ada pasien diarahkan ke petugas regis
+        
+        // jika ada data rujukan cek masa rujukannya apakah sudah expired, jika sudah pasien diarahkan ke petugas
+        
+        // hitung selisih masa expirednya, jika lebih dari 12 hari bisa lanjut regis ke poli
+        cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
+        cek_booking_poli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        cek_booking_kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
+        sisahari = Sequel.cariInteger("SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari FROM bridging_sep WHERE bridging_sep.no_rawat =?",noRm);
     }
 }
