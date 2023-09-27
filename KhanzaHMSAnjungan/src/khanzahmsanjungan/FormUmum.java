@@ -609,7 +609,7 @@ public class FormUmum extends javax.swing.JFrame {
 
     private void cek_pendaftaran(String noRm){
         //notifikasi pasien daftar ganda pada hari yang sama
-        cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) and  reg_periksa.no_rkm_medis=?",noRm);
+        cek_reg_periksa= Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND kd_pj = '01' AND reg_periksa.no_rkm_medis=?",noRm);
         cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         cek_booking_poli = Sequel.cariIsi("SELECT booking_registrasi.kd_poli FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
         cek_booking_kddokter = Sequel.cariIsi("SELECT booking_registrasi.kd_dokter FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=LEFT(NOW(),10) and booking_registrasi.no_rkm_medis=?",noRm);
