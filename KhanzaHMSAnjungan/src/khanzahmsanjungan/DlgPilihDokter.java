@@ -319,14 +319,14 @@ public class DlgPilihDokter extends javax.swing.JDialog {
                             DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                             pilih.setSize(this.getWidth(),this.getHeight());
                             pilih.setLocationRelativeTo(this);
-                            pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false");
+                            pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false", "null");
                             pilih.setVisible(true);
                         }                    
                     }else{
                         DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                         pilih.setSize(this.getWidth(),this.getHeight());
                         pilih.setLocationRelativeTo(this);
-                        pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false");
+                        pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false", "null");
                         pilih.setVisible(true);
                     } 
                 } catch (java.lang.NullPointerException e) {
@@ -347,14 +347,14 @@ public class DlgPilihDokter extends javax.swing.JDialog {
                         DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                         pilih.setSize(this.getWidth(),this.getHeight());
                         pilih.setLocationRelativeTo(this);
-                        pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false");
+                        pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false", "umum");
                         pilih.setVisible(true);
                     }                    
                 }else{
                     DlgRegistrasi pilih=new DlgRegistrasi(null,true);
                     pilih.setSize(this.getWidth(),this.getHeight());
                     pilih.setLocationRelativeTo(this);
-                    pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false");
+                    pilih.setPasien(LblNoRm.getText(),LblKdPoli.getText(),tbAdmin.getValueAt(tbAdmin.getSelectedRow(),0).toString(), "false", "umum");
                     pilih.setVisible(true);
                 } 
             } catch (java.lang.NullPointerException e) {

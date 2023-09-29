@@ -920,7 +920,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     
     
-    public void setPasien(String norm,String kdpoli,String kddokter, String ischeckin){
+    public void setPasien(String norm,String kdpoli,String kddokter, String ischeckin, String penjab){
         LblNoRm.setText(norm);
         txt_ischeckin.setText(ischeckin);
         try {
@@ -947,8 +947,18 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                         sttsumur="Hr";
                     }
                 }
-//                KdBayar.setText(rs.getString("kd_pj"));
-                KdBayar.setText("01");
+                               
+                switch (penjab) {
+                    case "umum":
+                        KdBayar.setText("01");
+                        break;
+                    case "bpjs":
+                        KdBayar.setText("BPJ");
+                        break;
+                    default:
+//                        KdBayar.setText(rs.getString("kd_pj"));
+                        KdBayar.setText("01");
+                }
                 NmBayar.setText(Sequel.cariIsi("select penjab.png_jawab from penjab where penjab.kd_pj=?",KdBayar.getText()));
             }
         } catch (Exception e) {
@@ -968,9 +978,16 @@ public class DlgRegistrasi extends javax.swing.JDialog {
         Tanggal.setDate(new Date());
         LblTanggal.setText(Tanggal.getSelectedItem().toString());
         LblJam.setText(Sequel.cariIsi("select current_time()"));
-        isNumber();
-        LblNoReg.setText(NoReg.getText());
-        LblNoRawat.setText(NoRawat.getText());
+        if(ischeckin.equals("true")){
+            String cek_noreg = Sequel.cariIsi("SELECT reg_periksa.no_reg FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
+            String cek_no_rawat = Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
+            LblNoReg.setText(cek_noreg);
+            LblNoRawat.setText(cek_no_rawat);
+        }else{
+            isNumber();
+            LblNoReg.setText(NoReg.getText());
+            LblNoRawat.setText(NoRawat.getText());
+        }
     }
     
     private void UpdateUmur(){

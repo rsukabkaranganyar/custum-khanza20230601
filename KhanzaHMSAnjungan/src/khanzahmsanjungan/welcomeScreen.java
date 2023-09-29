@@ -40,60 +40,43 @@ public class welcomeScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel4 = new component.Panel();
+        jLabel1 = new component.Label();
+        jLabel2 = new component.Label();
+        jLabel3 = new component.Label();
+        jPanel5 = new component.Panel();
+        jLabel4 = new component.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
+        setPreferredSize(new java.awt.Dimension(1015, 1000));
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(java.awt.Color.white);
-
-        jLabel3.setBackground(java.awt.Color.white);
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.black);
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Pilih Pembayaran");
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setForeground(java.awt.Color.white);
+        jPanel2.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1283, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(jPanel1, new java.awt.GridBagConstraints());
 
-        jPanel2.setBackground(java.awt.Color.white);
-        jPanel2.setForeground(java.awt.Color.white);
-        jPanel2.setMaximumSize(new java.awt.Dimension(1000, 1000));
-
-        jButton1.setBackground(new java.awt.Color(142, 68, 173));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(236, 240, 241));
-        jButton1.setText("UMUM");
-        jButton1.setMaximumSize(new java.awt.Dimension(500, 500));
-        jButton1.setPreferredSize(new java.awt.Dimension(500, 500));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1);
+        jPanel6.setBackground(java.awt.Color.white);
 
         jButton2.setBackground(new java.awt.Color(142, 68, 173));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -106,9 +89,69 @@ public class welcomeScreen extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel6.add(jButton2);
+
+        jButton1.setBackground(new java.awt.Color(142, 68, 173));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(236, 240, 241));
+        jButton1.setText("UMUM");
+        jButton1.setMaximumSize(new java.awt.Dimension(500, 500));
+        jButton1.setPreferredSize(new java.awt.Dimension(500, 500));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton1);
+
+        jPanel2.add(jPanel6, new java.awt.GridBagConstraints());
 
         jPanel3.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setBackground(new java.awt.Color(130, 50, 130));
+        jPanel4.setBorder(null);
+        jPanel4.setForeground(java.awt.Color.white);
+        jPanel4.setPreferredSize(new java.awt.Dimension(560, 150));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setForeground(new java.awt.Color(254, 184, 254));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/first_aid_kit.png"))); // NOI18N
+        jLabel1.setText("Selamat Datang di RSUD Kartini");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setIconTextGap(10);
+        jLabel1.setPreferredSize(new java.awt.Dimension(650, 50));
+        jPanel4.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setPreferredSize(new java.awt.Dimension(20, 10));
+        jPanel4.add(jLabel2, java.awt.BorderLayout.LINE_START);
+
+        jLabel3.setForeground(new java.awt.Color(254, 184, 254));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/kwrite.png"))); // NOI18N
+        jLabel3.setText("Pilih Salah Satu Pembayaran di Bawah Ini");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setIconTextGap(10);
+        jLabel3.setPreferredSize(new java.awt.Dimension(650, 70));
+        jPanel4.add(jLabel3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_START);
+
+        jPanel5.setBackground(new java.awt.Color(130, 50, 130));
+        jPanel5.setBorder(null);
+        jPanel5.setForeground(java.awt.Color.white);
+        jPanel5.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setForeground(new java.awt.Color(254, 184, 254));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Dikembangkan Oleh Khanza.Soft Media and modified by IT RSUD Kartini 2023");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jPanel5.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -165,9 +208,15 @@ public class welcomeScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel3;
+    private component.Label jLabel1;
+    private component.Label jLabel2;
+    private component.Label jLabel3;
+    private component.Label jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private component.Panel jPanel4;
+    private component.Panel jPanel5;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }

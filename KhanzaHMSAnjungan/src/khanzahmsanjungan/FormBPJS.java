@@ -637,7 +637,7 @@ public class FormBPJS extends javax.swing.JFrame {
                 regis.setSize(this.getWidth(),this.getHeight());
                 regis.setLocationRelativeTo(this);
 //                public void setPasien(String norm,String kodepoli,String kddokter)
-                regis.setPasien(noRm, cek_booking_poli, cek_booking_kddokter, "false");
+                regis.setPasien(noRm, cek_booking_poli, cek_booking_kddokter, "false", "bpjs");
                 regis.setVisible(true);
             }
 //            else if(sisahari<=15){
@@ -656,7 +656,7 @@ public class FormBPJS extends javax.swing.JFrame {
             System.out.println("form umum noRm: "+noRm);
             System.out.println("form umum cek_booking_poli: "+cek_reg_periksa_poli);
             System.out.println("form umum cek_booking_kddokter: "+cek_reg_periksa_kddokter);
-            regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true");
+            regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true", "bpjs");
             regis.setVisible(true);
         }
     }
@@ -695,6 +695,7 @@ public class FormBPJS extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null,"Tidak ada rujukan yang aktif, silahkan konfirmasi ke petugas registrasi.");
                         }else if(jml_rujukan_aktif == 1){
                             // query untuk cek sisa hari
+//                            String cek_no_rawat = Sequel.cariIsi("SELECT booking_.kd_poli FROM bridging_sep LEFT JOIN reg_periksa ON bridging_sep.no_rawat = reg_periksa.no_rawat WHERE bridging_sep.no_rawat = ?");
                             String query_rujukan_aktif = "SELECT (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) AS sisahari, bridging_sep.no_rawat FROM bridging_sep WHERE (90 - DATEDIFF(CURRENT_DATE,bridging_sep.tglrujukan)) > 0 AND bridging_sep.nomr = "+noRm;
                             PreparedStatement ps_rujukan_aktif = koneksi.prepareStatement(query_rujukan);
                             ResultSet rs_rujukan_aktif = ps_rujukan_aktif.executeQuery();
@@ -714,7 +715,7 @@ public class FormBPJS extends javax.swing.JFrame {
                                 System.out.println("form bpjs noRm: "+noRm);
                                 System.out.println("form bpjs cek_booking_poli: "+cek_reg_periksa_poli);
                                 System.out.println("form bpjs cek_booking_kddokter: "+cek_reg_periksa_kddokter);
-                                regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "false");
+                                regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "false", "bpjs");
                                 regis.setVisible(true);
                             }
                         }
@@ -736,7 +737,7 @@ public class FormBPJS extends javax.swing.JFrame {
                     System.out.println("form bpjs noRm: "+noRm);
                     System.out.println("form bpjs cek_booking_poli: "+cek_reg_periksa_poli);
                     System.out.println("form bpjs cek_booking_kddokter: "+cek_reg_periksa_kddokter);
-                    regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true");
+                    regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "true", "bpjs");
                     regis.setVisible(true);
                 }else{
                     DlgRegistrasi regis=new DlgRegistrasi(null,true);
@@ -747,12 +748,12 @@ public class FormBPJS extends javax.swing.JFrame {
                     System.out.println("form bpjs noRm: "+noRm);
                     System.out.println("form bpjs cek_booking_poli: "+cek_reg_periksa_poli);
                     System.out.println("form bpjs cek_booking_kddokter: "+cek_reg_periksa_kddokter);
-                    regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "false");
+                    regis.setPasien(noRm, cek_reg_periksa_poli, cek_reg_periksa_kddokter, "false", "bpjs");
                     regis.setVisible(true);
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Anda belum booking melalui aplikasi, silahkan daftar ke petugas. ");                
+            JOptionPane.showMessageDialog(null,"Anda belum booking melalui aplikasi, silahkan check in melalui aplikasi Si Dol. ");                
         }
         
 
