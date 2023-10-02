@@ -25,11 +25,14 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +51,7 @@ public class DlgRegistrasi extends javax.swing.JDialog {
     private DlgPilihBayar pilihbayar=new DlgPilihBayar(null,true);
     private String status="Baru",BASENOREG="",URUTNOREG="",aktifjadwal="", cek_booking_registrasi="";
     private Properties prop = new Properties();
+    String cek_noreg, cek_no_rawat = "";
 
     /** Creates new form DlgAdmin
      * @param parent
@@ -725,6 +729,20 @@ public class DlgRegistrasi extends javax.swing.JDialog {
                 Status.getText(),"Ralan",KdBayar.getText(),umur,sttsumur,"Belum Bayar",status})==true){
                 // update database booking
                 cek_booking_registrasi= Sequel.cariIsi("SELECT booking_registrasi.tanggal_periksa FROM booking_registrasi WHERE booking_registrasi.tanggal_periksa=CURDATE() and booking_registrasi.no_rkm_medis=?",LblNoRm.getText());
+                
+                // redundan save data to database kehadiran_pasien_bpjs
+                // no_rawat, no_rm, status_kehadiran
+                PreparedStatement query_simpan_kehadiran_pasien_bpjs;
+                try {
+                    query_simpan_kehadiran_pasien_bpjs = koneksi.prepareStatement("insert into kehadiran_pasien_bpjs (no_rawat, no_rm, status_kehadiran) values('"+LblNoRawat.getText()+"', '"+LblNoRm.getText()+"', 'hadir')");
+                    query_simpan_kehadiran_pasien_bpjs.executeUpdate();
+                    System.out.println("query_simpan_kehadiran_pasien_bpjs tersimpan: "+query_simpan_kehadiran_pasien_bpjs);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DlgRegistrasi.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("query_simpan_kehadiran_pasien_bpjs error: "+ex);
+                }
+                
+                        
                 if(cek_booking_registrasi.equals("")){
                     System.out.println("tidak ada booking");
                 }else{
@@ -979,8 +997,21 @@ public class DlgRegistrasi extends javax.swing.JDialog {
         LblTanggal.setText(Tanggal.getSelectedItem().toString());
         LblJam.setText(Sequel.cariIsi("select current_time()"));
         if(ischeckin.equals("true")){
-            String cek_noreg = Sequel.cariIsi("SELECT reg_periksa.no_reg FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
-            String cek_no_rawat = Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
+            switch (penjab) {
+                case "umum":
+                    KdBayar.setText("01");
+                    cek_noreg = Sequel.cariIsi("SELECT reg_periksa.no_reg FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
+                    cek_no_rawat = Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = '01' AND reg_periksa.no_rkm_medis=?", norm);
+                    break;
+                case "bpjs":
+                    KdBayar.setText("BPJ");
+                    cek_noreg = Sequel.cariIsi("SELECT reg_periksa.no_reg FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = 'BPJ' AND reg_periksa.no_rkm_medis=?", norm);
+                    cek_no_rawat = Sequel.cariIsi("SELECT reg_periksa.no_rawat FROM reg_periksa WHERE reg_periksa.tgl_registrasi=LEFT(NOW(),10) AND reg_periksa.kd_pj = 'BPJ' AND reg_periksa.no_rkm_medis=?", norm);
+                    break;
+                default:
+//                  KdBayar.setText(rs.getString("kd_pj"));
+                    KdBayar.setText("01");
+            }
             LblNoReg.setText(cek_noreg);
             LblNoRawat.setText(cek_no_rawat);
         }else{
