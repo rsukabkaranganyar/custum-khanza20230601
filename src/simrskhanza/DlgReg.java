@@ -13988,7 +13988,9 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
                         default:
                             ket_hadir = "-";
                     }
-                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rs.getString(2)+"' AND k.no_rm = '"+rs.getString(7)+"'");
+//                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rs.getString(2)+"' AND k.no_rm = '"+rs.getString(7)+"'");
+                    String query_sep = "SELECT b.no_sep FROM bridging_sep b WHERE b.no_rawat = '"+rs.getString(2)+"'  AND b.nomr = '"+rs.getString(7)+"'";
+                    String sep = Sequel.cariIsi(query_sep);
                     String ket_sep = "";
                     if(sep == null){
                         ket_sep = "-";
@@ -14087,7 +14089,9 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
                         default:
                             ket_hadir = "-";
                     }
-                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rs.getString(1)+"' AND k.no_rm = '"+rs.getString(6)+"'");
+//                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rs.getString(1)+"' AND k.no_rm = '"+rs.getString(6)+"'");
+                    String query_sep = "SELECT b.no_sep FROM bridging_sep b WHERE b.no_rawat = '"+rs.getString(1)+"'  AND b.nomr = '"+rs.getString(6)+"'";
+                    String sep = Sequel.cariIsi(query_sep);
                     String ket_sep = "";
                     if(sep == null){
                         ket_sep = "-";
