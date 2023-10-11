@@ -716,10 +716,10 @@ public class DlgRegistrasi extends javax.swing.JDialog {
         if(Sequel.cariInteger("select count(no_rkm_medis) from reg_periksa where no_rkm_medis=? and kd_poli=?",LblNoRm.getText(),LblKdPoli.getText())>0){
             status="Lama";
         }
-        LblJam.setText(Sequel.cariIsi("select current_time()"));
+//        LblJam.setText(Sequel.cariIsi("select current_time()"));
         isNumber();
-        LblNoReg.setText(NoReg.getText());
-        LblNoRawat.setText(NoRawat.getText());
+//        LblNoReg.setText(NoReg.getText());
+//        LblNoRawat.setText(NoRawat.getText());
         String ischeckin = txt_ischeckin.getText();
         if("false".equals(ischeckin)){
             if(Sequel.menyimpantf2("reg_periksa","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",19,
@@ -803,6 +803,22 @@ public class DlgRegistrasi extends javax.swing.JDialog {
             }    
         }else{
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            // redundan save data to database kehadiran_pasien_bpjs
+            // no_rawat, no_rm, status_kehadiran
+            String cek_kehadiran = Sequel.cariIsi("SELECT k.status_kehadiran FROM kehadiran_pasien_bpjs k WHERE k.no_rawat = '"+LblNoRawat.getText()+"' AND k.no_rm = '"+LblNoRm.getText()+"'");
+            if(cek_kehadiran.equals("")){
+             PreparedStatement query_simpan_kehadiran_pasien_bpjs;
+                try {
+                    query_simpan_kehadiran_pasien_bpjs = koneksi.prepareStatement("insert into kehadiran_pasien_bpjs (no_rawat, no_rm, status_kehadiran) values('"+LblNoRawat.getText()+"', '"+LblNoRm.getText()+"', 'hadir')");
+                    query_simpan_kehadiran_pasien_bpjs.executeUpdate();
+                    System.out.println("query_simpan_kehadiran_pasien_bpjs tersimpan: "+query_simpan_kehadiran_pasien_bpjs);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DlgRegistrasi.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("query_simpan_kehadiran_pasien_bpjs error: "+ex);
+                }   
+            }else{
+                System.out.println("status kehadiran: "+cek_kehadiran);
+            }
             Map<String, Object> param = new HashMap<>();
             Valid2.MyReportqry("rptBarcodeRM18.jasper","report","::[ Label Rekam Medis ]::","SELECT reg_periksa.*, pasien.*, poliklinik.nm_poli, penjab.png_jawab FROM reg_periksa LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli LEFT JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis LEFT JOIN penjab ON reg_periksa.kd_pj = penjab.kd_pj WHERE reg_periksa.no_rkm_medis = '"+LblNoRm.getText()+"'  AND reg_periksa.tgl_registrasi = CURDATE();",param, 6);
 
