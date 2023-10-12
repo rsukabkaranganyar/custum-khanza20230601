@@ -866,6 +866,9 @@ import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
 import setting.DlgRuangOperasi;
 import setting.DlgSetHargaToko;
+import setting.DlgWorkstation;
+import setting.DlgWorkstationConfigList;
+import setting.DlgWorkstationSetup;
 import smsui.frmSmsView;
 import surat.PengumumanEPasien;
 import surat.SuratAlmari;
@@ -1026,6 +1029,7 @@ public class frmUtama extends javax.swing.JFrame {
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
             LblIP.setText(""+inetAddress.getHostAddress());
+            LblHostname.setText(""+InetAddress.getLocalHost().getHostName());
             akses.setalamatip(""+inetAddress.getHostAddress());
         } catch (Exception e) {
             System.out.println("Notif IP : "+e);
@@ -1105,9 +1109,11 @@ public class frmUtama extends javax.swing.JFrame {
         scrollPane2 = new widget.ScrollPane();
         Panelmenu = new widget.panelGlass();
         tanggal = new widget.Tanggal();
+        btnWorkstation = new widget.ButtonBig();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
         btnDataPenyerahanDarah = new widget.ButtonBig();
+        btnWorkstationSetup = new widget.ButtonBig();
         btnResepObatDepan = new widget.ButtonBig();
         btnBarcode = new widget.ButtonBig();
         btnICD = new widget.ButtonBig();
@@ -1564,6 +1570,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnGrafikLimbahDomestikPerTanggal = new widget.ButtonBig();
         btnLaboratoriumPA = new widget.ButtonBig();
         btnLaboratoriumMB = new widget.ButtonBig();
+        btnWorkstationConfigList = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1589,6 +1596,8 @@ public class frmUtama extends javax.swing.JFrame {
         LblIP = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        LblHostname = new javax.swing.JLabel();
         PanelUtama = new javax.swing.JPanel();
         scrollPane1 = new widget.ScrollPane();
         PanelWall = new usu.widget.glass.PanelGlass();
@@ -1767,7 +1776,7 @@ public class frmUtama extends javax.swing.JFrame {
         DlgHome.setResizable(false);
 
         panelMenu.setBackground(new java.awt.Color(255, 253, 253));
-        panelMenu.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(223, 233, 213)), "::[ Menu Utama ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        panelMenu.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(223, 233, 213)), "::[ Menu Utama ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(50, 50, 50))); // NOI18N
         panelMenu.setName("panelMenu"); // NOI18N
         panelMenu.setPreferredSize(new java.awt.Dimension(2412, 3653));
         panelMenu.setWarnaAtas(new java.awt.Color(255, 252, 252));
@@ -1808,6 +1817,11 @@ public class frmUtama extends javax.swing.JFrame {
         cmbMenu.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbMenuItemStateChanged(evt);
+            }
+        });
+        cmbMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMenuActionPerformed(evt);
             }
         });
         panelisi2.add(cmbMenu);
@@ -1859,10 +1873,21 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16/06/2023" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24/08/2023" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
+
+        btnWorkstation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/local_network.png"))); // NOI18N
+        btnWorkstation.setText("List Workstation");
+        btnWorkstation.setIconTextGap(0);
+        btnWorkstation.setName("btnWorkstation"); // NOI18N
+        btnWorkstation.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnWorkstation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWorkstationActionPerformed(evt);
+            }
+        });
 
         btnDataPenjualan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/1485357971_desktop_computer.png"))); // NOI18N
         btnDataPenjualan.setText("Data Penjualan Obat & BHP");
@@ -1894,6 +1919,17 @@ public class frmUtama extends javax.swing.JFrame {
         btnDataPenyerahanDarah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDataPenyerahanDarahActionPerformed(evt);
+            }
+        });
+
+        btnWorkstationSetup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/local_network.png"))); // NOI18N
+        btnWorkstationSetup.setText("Setup Workstation");
+        btnWorkstationSetup.setIconTextGap(0);
+        btnWorkstationSetup.setName("btnWorkstationSetup"); // NOI18N
+        btnWorkstationSetup.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnWorkstationSetup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWorkstationSetupActionPerformed(evt);
             }
         });
 
@@ -6913,6 +6949,17 @@ public class frmUtama extends javax.swing.JFrame {
             }
         });
 
+        btnWorkstationConfigList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/local_network.png"))); // NOI18N
+        btnWorkstationConfigList.setText("List Config Workstation");
+        btnWorkstationConfigList.setIconTextGap(0);
+        btnWorkstationConfigList.setName("btnWorkstationConfigList"); // NOI18N
+        btnWorkstationConfigList.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnWorkstationConfigList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWorkstationConfigListActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ Khanza SIMKES 2022 ]::");
         setBackground(new java.awt.Color(255, 254, 254));
@@ -7242,6 +7289,23 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel7.setName("jLabel7"); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(450, 23));
         internalFrame4.add(jLabel7);
+
+        jSeparator8.setBackground(new java.awt.Color(255, 81, 102));
+        jSeparator8.setForeground(new java.awt.Color(255, 81, 102));
+        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(217, 1, 122)));
+        jSeparator8.setName("jSeparator8"); // NOI18N
+        jSeparator8.setOpaque(true);
+        jSeparator8.setPreferredSize(new java.awt.Dimension(1, 21));
+        internalFrame4.add(jSeparator8);
+
+        LblHostname.setForeground(new java.awt.Color(50, 50, 50));
+        LblHostname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LblHostname.setText("Hostname");
+        LblHostname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        LblHostname.setName("LblHostname"); // NOI18N
+        LblHostname.setPreferredSize(new java.awt.Dimension(120, 23));
+        internalFrame4.add(LblHostname);
 
         getContentPane().add(internalFrame4, java.awt.BorderLayout.PAGE_END);
 
@@ -14425,6 +14489,52 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnInfoMobileJKNActionPerformed
 
+    private void cmbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMenuActionPerformed
+
+    private void btnWorkstationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWorkstationActionPerformed
+        // TODO add your handling code here:
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgWorkstation form=new DlgWorkstation(this,false);
+//        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnWorkstationActionPerformed
+
+    private void btnWorkstationConfigListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWorkstationConfigListActionPerformed
+        // TODO add your handling code here:
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgWorkstationConfigList form=new DlgWorkstationConfigList(this,false);
+//        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnWorkstationConfigListActionPerformed
+
+    private void btnWorkstationSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWorkstationSetupActionPerformed
+        // TODO add your handling code here:
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgWorkstationSetup form=new DlgWorkstationSetup(this,false);
+//        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnWorkstationSetupActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -20197,6 +20307,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private javax.swing.JDialog DlgHome;
     private javax.swing.JDialog DlgLogin;
     private usu.widget.glass.PanelGlass FlayMenu;
+    private javax.swing.JLabel LblHostname;
     private javax.swing.JLabel LblIP;
     private widget.MenuBar MenuBar;
     private javax.swing.JMenuItem MenuKeluar;
@@ -20705,6 +20816,9 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnUTDPenyerahanDarah;
     private widget.ButtonBig btnUTDStokDarah;
     private widget.ButtonBig btnVakum;
+    private widget.ButtonBig btnWorkstation;
+    private widget.ButtonBig btnWorkstationConfigList;
+    private widget.ButtonBig btnWorkstationSetup;
     private widget.ButtonBig btnakun_bayar;
     private widget.ButtonBig btnbayar_pemesanan;
     private widget.ButtonBig btnfee_bacaan_ekg;
@@ -20742,6 +20856,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private widget.Label label35;
     private widget.Label label36;
@@ -25646,6 +25761,21 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getruang_ok()==true){
                 Panelmenu.add(btnRuangOperasi);
+                jmlmenu++;
+            }
+            
+            if(akses.getworkstation()==true){
+                Panelmenu.add(btnWorkstation);
+                jmlmenu++;
+            }
+            
+            if(akses.getworkstationconfiglist()==true){
+                Panelmenu.add(btnWorkstationConfigList);
+                jmlmenu++;
+            }
+            
+            if(akses.getworkstationsetup()==true){
+                Panelmenu.add(btnWorkstationSetup);
                 jmlmenu++;
             }
         }    

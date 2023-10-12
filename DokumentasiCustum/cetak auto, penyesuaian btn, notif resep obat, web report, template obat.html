@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<html language="en-US">
+<head>
+<title>TrelloExport Newsletter</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="chrome-extension://kmmnaeamjfdnbhljpedgfchjbkbomahp/templates/newsletter.css">
+<style>
+    img{
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+                                                                        <h2>RSUD Kab Karanganyar</h2>
+                                                                            <h3><i class="far fa-newspaper"></i> Done Agustus 2023</h3>
+                                    
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Jasper Report print ke printer tertentu</h4>
+                    <div class="description">
+                        <p class="text"><p><a href="https://stackoverflow.com/questions/31028896/how-to-print-jasper-reports-in-a-specified-printer &quot;smartCard-inline&quot;">https://stackoverflow.com/questions/31028896/how-to-print-jasper-reports-in-a-specified-printer</a></p>
+
+<p><strong>Menu Resep Obat</strong></p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f69467baf365e8d5f6c0cd/download/image.png" alt="image.png" /></p>
+
+<p>ketika print cetak otomatis, akan memproses fungsi yang mencari apakah PC tersebut sudah disetting di workstation config. jika cetak manual, maka akan menampilkan form jasper report yang menampilkan preview print, dan memilih print secara manual.</p>
+
+<p><strong>Menu Workstation List</strong></p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f691099474e945ba18c767/download/image.png" alt="image.png" /></p>
+
+<p>Untuk mendaftarkan alamat IP dan Hostname dari PC Client.</p>
+
+<p>&#8204;</p>
+
+<p><strong>Menu List Config Workstation</strong></p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f6916a9f8dd31394332830/download/image.png" alt="image.png" /></p>
+
+<p>Untuk mendaftarkan semua jenis jasper report yang akan di print. Config name untuk menamai report dari modul yang akan di setting, dan jasper report name adalah nama file dari report jasper.</p>
+
+<p>&#8204;</p>
+
+<p><strong>Menu Workstation Setup</strong></p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f6925aebddb911f74d63da/download/image.png" alt="image.png" /></p>
+
+<p>Menu untuk mapping dari List PC yang terdaftar, disambungkan dengan nama report yang terdaftar dengan alamat printer sharing maupun non sharing. Untuk cara confignya adalah klik sekali pada IP atau Hostname PC, kemudian kolom sebelah kanan akan load settingan print apa saja yang sudah termapping. Silahkan config sesuai dengan kebutuhan. Untuk settingan kertas juga sudah ada config ukuran kertasnya yang bisa disetting secara manual.</p>
+
+<p>&#8204;</p>
+
+<p><strong>Code</strong></p>
+
+<p>Deklarasi variable</p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f694f8793cf68af18a9408/download/image.png" alt="image.png" /></p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f6953485cfe032d3459b63/download/image.png" alt="image.png" /></p>
+
+<pre><code class="java language-java">//Function untuk report query print jasper secara otomatis pilih
+    public void MyReportqry(String reportName,String reportDirName,String judul,String qry,Map parameters){
+        Properties systemProp = System.getProperties();
+
+        // Ambil current dir
+        String currentDir = systemProp.getProperty(&amp;quot;user.dir&amp;quot;);
+
+        File dir = new File(currentDir);
+
+        File fileRpt;
+        String fullPath = &amp;quot;&amp;quot;;
+        if (dir.isDirectory()) {
+            String[] isiDir = dir.list();
+            for (String iDir : isiDir) {
+                fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
+                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jrxml ada
+                    fullPath = fileRpt.toString();
+                    System.out.println(&amp;quot;Found Report File at : &amp;quot; + fullPath);
+                } // end if
+            } // end for i
+        } // end if
+
+        try {
+            ps=connect.prepareStatement(qry);
+            try {
+                String namafile=&amp;quot;./&amp;quot;+reportDirName+&amp;quot;/&amp;quot;+reportName;
+                rs=ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters,rsdt);
+
+                //Get the printers names
+                PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+
+                //Lets set the printer name based on the registered printers driver name (you can see the printer names in the services variable at debugging)
+                //String selectedPrinter = &amp;quot;Toper Printer&amp;quot;;
+                InetAddress inetAddress = InetAddress.getLocalHost();
+                String hostname = InetAddress.getLocalHost().getHostName();
+                String ip_address = inetAddress.getHostAddress();
+                try {
+                    String query = &amp;quot;SELECT wc.*, w.ip_address, w.workstation, wcl.config_name, wcl.jasper_report_name\n&amp;quot; +
+                                   &amp;quot;FROM workstation_config wc\n&amp;quot; +
+                                   &amp;quot;LEFT JOIN workstation w ON wc.id_workstation = w.id_workstation\n&amp;quot; +
+                                   &amp;quot;LEFT JOIN workstation_config_list wcl ON wc.id_workstation_config = wcl.id_workstation_config\n&amp;quot;+
+                                   &amp;quot;WHERE w.ip_address  = '&amp;quot;+ip_address+&amp;quot;' AND w.workstation = '&amp;quot;+hostname+&amp;quot;' AND wcl.jasper_report_name = '&amp;quot;+reportName+&amp;quot;'&amp;quot;;
+                    ps_workstation = connect.prepareStatement(query);
+                    rs_workstation = ps_workstation.executeQuery();
+                    rs_workstation.next();
+                    System.out.println(&amp;quot;Query: &amp;quot;+query);
+                    System.out.println(&amp;quot;Sharing printer: &amp;quot;+rs_workstation.getString(&amp;quot;sharing_printer&amp;quot;));
+                    Integer x = rs_workstation.getInt(&amp;quot;margin_x&amp;quot;);
+                    Integer y = rs_workstation.getInt(&amp;quot;margin_y&amp;quot;);
+                    Integer width = rs_workstation.getInt(&amp;quot;width&amp;quot;);
+                    Integer height = rs_workstation.getInt(&amp;quot;height&amp;quot;);
+                    if (rs_workstation != null) {
+                        //String selectedPrinter = &amp;quot;\\\\10.77.41.99\\Canon LBP2900&amp;quot;; // examlpe to network shared printer
+
+                        String selectedPrinter = rs_workstation.getString(&amp;quot;sharing_printer&amp;quot;);
+                        System.out.println(&amp;quot;IP Address: &amp;quot; + ip_address);
+                        System.out.println(&amp;quot;Hostname: &amp;quot; + hostname);
+                        System.out.println(&amp;quot;Share printer: &amp;quot; + selectedPrinter);
+                        System.out.println(&amp;quot;Number of print services: &amp;quot; + services.length);
+                        PrintService selectedService = null;
+
+                        //Set the printing settings
+                        PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
+//                        printRequestAttributeSet.add(MediaSizeName.ISO_A4);
+//                        x,y adalah margin; w, h adalah ukuran kertas (kertas label zebra zd230 menggunakan ukuran 66mm dan 35mm dengan margin 0
+                        printRequestAttributeSet.add(new MediaPrintableArea(x, y, width, height, MediaPrintableArea.MM));
+                        printRequestAttributeSet.add(new Copies(1));
+
+                        if (jasperPrint.getOrientationValue() == net.sf.jasperreports.engine.type.OrientationEnum.LANDSCAPE) {
+                          printRequestAttributeSet.add(OrientationRequested.LANDSCAPE);
+                        } else {
+                          printRequestAttributeSet.add(OrientationRequested.PORTRAIT);
+                        }
+
+                        PrintServiceAttributeSet printServiceAttributeSet = new HashPrintServiceAttributeSet();
+                        printServiceAttributeSet.add(new PrinterName(selectedPrinter, null));
+
+                        JRPrintServiceExporter exporter = new JRPrintServiceExporter();
+                        SimplePrintServiceExporterConfiguration configuration = new SimplePrintServiceExporterConfiguration();
+                        configuration.setPrintRequestAttributeSet(printRequestAttributeSet);
+                        configuration.setPrintServiceAttributeSet(printServiceAttributeSet);
+                        configuration.setDisplayPageDialog(false);
+                        configuration.setDisplayPrintDialog(false);
+
+                        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+                        exporter.setConfiguration(configuration);
+
+                        //Iterate through available printer, and once matched with our &amp;lt;selectedPrinter&amp;gt;, go ahead and print!
+                        if(services != null &amp;amp;&amp;amp; services.length != 0){
+                          for(PrintService service : services){
+                              String existingPrinter = service.getName();
+                              if(existingPrinter.equals(selectedPrinter))
+                              {
+                                  selectedService = service;
+                                  break;
+                              }
+                          }
+                        }
+                        if(selectedService != null)
+                        {
+                          try{
+                              //Lets the printer do its magic!
+                              exporter.exportReport();
+                          }catch(JRException e){
+                        System.out.println(&amp;quot;JasperReport Error: &amp;quot;+e.getMessage());
+                          }
+                        }else{
+                          System.out.println(&amp;quot;JasperReport Error: Printer not found!&amp;quot;);
+                        }
+                    }else{
+                        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                        jasperViewer.setTitle(judul);
+                        Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+                        jasperViewer.setSize(screen.width-50,screen.height-50);
+                        jasperViewer.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+                        jasperViewer.setLocationRelativeTo(null);
+                        jasperViewer.setVisible(true);
+                    }
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+            } catch (HeadlessException | UnknownHostException | SQLException | JRException rptexcpt) {
+                System.out.println(&amp;quot;Report Can't view because : &amp;quot; + rptexcpt);
+                JOptionPane.showMessageDialog(null,&amp;quot;Report Can't view because : &amp;quot;+ rptexcpt);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+        }
+    }
+</code></pre>
+
+<p>Mendeteksi apakah PC client tersebut sudah terconfig, jika tidak akan menggunakan jasper report manual, dan pilih printer manual.</p>
+
+<p>&#8204;</p>
+
+<p>Penambahan label hostname pada footer</p>
+
+<p><img src="https://trello.com/1/cards/64d466020b651b982c80ed8a/attachments/64f69e0f5226200b472691d7/download/image.png" alt="image.png" /></p>
+
+<pre><code>InetAddress inetAddress = InetAddress.getLocalHost();
+LblIP.setText(&amp;quot;&amp;quot;+inetAddress.getHostAddress());
+LblHostname.setText(&amp;quot;&amp;quot;+InetAddress.getLocalHost().getHostName());
+akses.setalamatip(&amp;quot;&amp;quot;+inetAddress.getHostAddress());
+</code></pre></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>JDialog untuk menampilkan obat yang sudah tersimpan di input resep</h4>
+                    <div class="description">
+                        <p class="text"><p>Plan:</p>
+
+<p><img src="https://trello.com/1/cards/64d465c6d16b3cd4ad8dda2a/attachments/64d465c9ba906938d69cd6ea/download/image.png" alt="image.png" /></p>
+
+<p>setelah klik yes, maka kembali ke form awal dan menampilkan JDialog yang berisi obat apa saja yang sudah di submit</p>
+
+<p>&#8204;</p>
+
+<p>Resolution:</p>
+
+<p>sudah muncul notif</p>
+
+<p><img src="https://trello.com/1/cards/64d465c6d16b3cd4ad8dda2a/attachments/64d9d46b909d60df23dcc90a/download/image.png" alt="image.png" /></p>
+
+<p>Design Preview:</p>
+
+<p><img src="https://trello.com/1/cards/64d465c6d16b3cd4ad8dda2a/attachments/64f6a994550cdbd0079387fb/download/image.png" alt="image.png" /></p>
+
+<p><img src="https://trello.com/1/cards/64d465c6d16b3cd4ad8dda2a/attachments/64f6a9aca0de1f92b1a21aa7/download/image.png" alt="image.png" /></p>
+
+<p>Code:</p>
+
+<pre><code>  try {
+      ps_resep_obat_tersubmit = koneksi.prepareStatement(&amp;quot;SELECT r.*, d.nama_brng FROM resep_dokter r LEFT JOIN databarang d ON r.kode_brng = d.kode_brng where r.no_resep = ?&amp;quot;);
+      ps_resep_obat_tersubmit.setString(1, NoResep.getText());
+      rs_resep_obat_tersubmit = ps_resep_obat_tersubmit.executeQuery();
+      dialog_resep = &amp;quot;Data obat yang tersimpan : \n&amp;quot;;
+      int no = 1;
+      while (rs_resep_obat_tersubmit.next()) {
+          System.out.println(rs_resep_obat_tersubmit.getString(&amp;quot;kode_brng&amp;quot;));
+          System.out.println(rs_resep_obat_tersubmit.getString(&amp;quot;nama_brng&amp;quot;));
+          dialog_resep += no+&amp;quot;. &amp;quot;+rs_resep_obat_tersubmit.getString(&amp;quot;nama_brng&amp;quot;)+&amp;quot;, Jml: &amp;quot;+rs_resep_obat_tersubmit.getString(&amp;quot;jml&amp;quot;)+&amp;quot;, Aturan pakai: &amp;quot;+rs_resep_obat_tersubmit.getString(&amp;quot;aturan_pakai&amp;quot;)+&amp;quot;\n&amp;quot;;
+          no++;
+      }
+  } catch (SQLException ex) {
+      // Logger.getLogger(DlgPeresepanDokter.class.getName()).log(Level.SEVERE, null, ex);
+      System.out.println(ex);
+  }
+  String resep_tersubmit = &amp;quot;&amp;quot;;
+  int konfirm_resep = JOptionPane.showConfirmDialog(rootPane,dialog_resep,&amp;quot;Info No Resep: &amp;quot;+NoResep.getText(),JOptionPane.YES_NO_OPTION);
+  if(konfirm_resep == JOptionPane.YES_OPTION){
+      dispose();
+  }else{
+      dispose();
+      this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      DlgCopyResep daftar=new DlgCopyResep(null,false);
+      daftar.isCek();
+      daftar.setRM(TNoRw.getText(),noRMPasien,KdDokter.getText(),kdPj,&amp;quot;ralan&amp;quot;);
+      daftar.tampil();
+      daftar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+      daftar.setLocationRelativeTo(internalFrame1);
+      daftar.setVisible(true);
+      this.setCursor(Cursor.getDefaultCursor());
+  }
+</code></pre></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Remake Khanza Report</h4>
+                    <div class="description">
+                        <p class="text"><p><img src="https://trello.com/1/cards/64c8787d2df0fc02dcafb4d7/attachments/64c878d10a1b7283292f512c/download/image.png" alt="image.png" /></p>
+
+<p>mempersiapkan framework CI 3 HMVC</p>
+
+<p>recreate semua modul laporan beserta grafik</p>
+
+<p>Login:
+user: rsudkra
+password : 12345678</p>
+
+<p>&#8204;</p>
+
+<p><img src="https://trello.com/1/cards/64c8787d2df0fc02dcafb4d7/attachments/64f6a70ed7904721241ef2a9/download/image.png" alt="image.png" /></p>
+
+<p>Struktur Code dengan Hirarki MVC, terdapat folder modules untuk membagi controller, model, javascript, dan view</p>
+
+<p><img src="https://trello.com/1/cards/64c8787d2df0fc02dcafb4d7/attachments/64f6a776516ab7b77cf36ac5/download/image.png" alt="image.png" /></p></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Pindah Tombol Surat Masuk Keluar dari form IGD ke Rawat Jalan</h4>
+                    <div class="description">
+                        <p class="text"><p>Dari form ini</p>
+
+<p><img src="https://trello.com/1/cards/64c885879f8f4a6bd4283535/attachments/64c885b6259ad4950759082f/download/image.png" alt="image.png" /></p>
+
+<p>ke form ini</p>
+
+<p><img src="https://trello.com/1/cards/64c885879f8f4a6bd4283535/attachments/64c885eee72dd447e17de54d/download/image.png" alt="image.png" /></p>
+
+<p>&#8204;</p>
+
+<p>resolution:</p>
+
+<p>sudah ditambahkan ke DlgRawatJalan</p>
+
+<p><img src="https://trello.com/1/cards/64c885879f8f4a6bd4283535/attachments/64c9b4144612f45eb45318e2/download/image.png" alt="image.png" /></p>
+
+<p><img src="https://trello.com/1/cards/64c885879f8f4a6bd4283535/attachments/64c9b42e622b9e7cfb289e03/download/image.png" alt="image.png" /></p></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Tambah tombol rencana kontrol BPJS dari form Registrasi ke Form Rawat Inap</h4>
+                    <div class="description">
+                        <p class="text"><p>Dari sini</p>
+
+<p><img src="https://trello.com/1/cards/64c886264d814d7baa1a7ec3/attachments/64c8862be2f9240de19b68d2/download/image.png" alt="image.png" /></p>
+
+<p>ke sini</p>
+
+<p><img src="https://trello.com/1/cards/64c886264d814d7baa1a7ec3/attachments/64f6a4004af1c81f801f0ced/download/image.png" alt="image.png" /></p>
+
+<p><img src="https://trello.com/1/cards/64c886264d814d7baa1a7ec3/attachments/64f6a41fad0ce9f412d15693/download/image.png" alt="image.png" /></p>
+
+<p>Code:</p>
+
+<pre><code class="java language-java">private void BtnRencanaKontrolBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        if(TNoRw.getText().trim().equals(&amp;quot;&amp;quot;)){
+            JOptionPane.showMessageDialog(null,&amp;quot;Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!&amp;quot;);
+            TCari.requestFocus();
+        }else{
+            try {
+                pskasir = koneksi.prepareStatement(&amp;quot;select no_sep,no_kartu,tanggal_lahir,jkel,nmdiagnosaawal from bridging_sep where no_rawat=?&amp;quot;);
+                try {
+                    pskasir.setString(1,TNoRw.getText());
+                    rskasir = pskasir.executeQuery();
+                    if(rskasir.next()){
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        BPJSSuratKontrol form=new BPJSSuratKontrol(null,false);
+                        form.setNoRm(TNoRw.getText(),rskasir.getString(&amp;quot;no_sep&amp;quot;),rskasir.getString(&amp;quot;no_kartu&amp;quot;),TNoRw.getText(),TPasien.getText(),rskasir.getString(&amp;quot;tanggal_lahir&amp;quot;),rskasir.getString(&amp;quot;jkel&amp;quot;),rskasir.getString(&amp;quot;nmdiagnosaawal&amp;quot;));
+                        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                        form.setLocationRelativeTo(internalFrame1);
+                        form.setVisible(true);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }else{
+                        JOptionPane.showMessageDialog(null,&amp;quot;Pasien tersebut belum terbit SEP, silahkan hubungi bagian terkait..!!&amp;quot;);
+                        TCari.requestFocus();
+                    }
+                } catch (Exception e) {
+                    System.out.println(&amp;quot;Notif : &amp;quot;+e);
+                } finally{
+                    if(rskasir!=null){
+                        rskasir.close();
+                    }
+                    if(pskasir!=null){
+                        pskasir.close();
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(&amp;quot;Notif : &amp;quot;+e);
+            }
+        }
+    }
+</code></pre></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Pindah tombol rencana kontrol BPJS ke form Registrasi</h4>
+                    <div class="description">
+                        <p class="text"><p>resolution:</p>
+
+<p>sudah ditambahkan</p>
+
+<p><img src="https://trello.com/1/cards/64c887fca9c1cea3a566c5dc/attachments/64c9b49dad8e53ff35684264/download/image.png" alt="image.png" /></p>
+
+<p>&#8204;</p>
+
+<p>Design preview</p>
+
+<p><img src="https://trello.com/1/cards/64c887fca9c1cea3a566c5dc/attachments/64f69f6863e3e43b83ebab1c/download/image.png" alt="image.png" /></p>
+
+<p>&#8204;</p>
+
+<p>Code</p>
+
+<pre><code class="java language-java">    private void BtnLembarKeluarMasukActionPerformed(java.awt.event.ActionEvent evt) {
+        // tambah button lembar keluar masuk dari dlg igd-&amp;gt;administrasi-&amp;gt;lembar keluar masuk
+
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map&amp;lt;String, Object&amp;gt; param = new HashMap&amp;lt;&amp;gt;();
+            param.put(&amp;quot;namars&amp;quot;,akses.getnamars());
+            param.put(&amp;quot;alamatrs&amp;quot;,akses.getalamatrs());
+            param.put(&amp;quot;kotars&amp;quot;,akses.getkabupatenrs());
+            param.put(&amp;quot;propinsirs&amp;quot;,akses.getpropinsirs());
+            param.put(&amp;quot;kontakrs&amp;quot;,akses.getkontakrs());
+            param.put(&amp;quot;emailrs&amp;quot;,akses.getemailrs());
+//            param.put(&amp;quot;kiriman&amp;quot;,AsalRujukan.getText());
+            param.put(&amp;quot;doktermasuk&amp;quot;,TDokter.getText());
+            param.put(&amp;quot;dirawatke&amp;quot;,Sequel.cariIsi(&amp;quot;select count(no_rkm_medis)+1 from reg_periksa where no_rkm_medis=?&amp;quot;,TNoRM.getText()));
+            param.put(&amp;quot;terakhirdirawat&amp;quot;,Sequel.cariIsi(&amp;quot;select DATE_FORMAT(tgl_registrasi,'%d/%m/%Y') from reg_periksa where no_rkm_medis=? order by tgl_registrasi desc limit 1&amp;quot;,TNoRM.getText()));
+            param.put(&amp;quot;logo&amp;quot;,Sequel.cariGambar(&amp;quot;select setting.logo from setting&amp;quot;));
+            Valid.MyReportqry(&amp;quot;rptLembarKeluarMasuk3.jasper&amp;quot;,&amp;quot;report&amp;quot;,&amp;quot;::[ Ringkasan Masuk Keluar ]::&amp;quot;,&amp;quot;select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, &amp;quot;+
+                &amp;quot;pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab,', ',propinsi.nm_prop) as alamat, pasien.gol_darah, pasien.pekerjaan,&amp;quot;+
+                &amp;quot;pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj, suku_bangsa.nama_suku_bangsa,&amp;quot;+
+                &amp;quot;concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj,', ',pasien.propinsipj) as alamatpj from pasien &amp;quot;+
+                &amp;quot;inner join kelurahan inner join kecamatan inner join kabupaten inner join suku_bangsa &amp;quot;+
+                &amp;quot;inner join penjab inner join propinsi on pasien.kd_prop=propinsi.kd_prop and pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel &amp;quot;+
+                &amp;quot;and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab and suku_bangsa.id=pasien.suku_bangsa where pasien.no_rkm_medis='&amp;quot;+TNoRM.getText()+&amp;quot;' &amp;quot;,param);
+            this.setCursor(Cursor.getDefaultCursor());
+    }
+</code></pre>
+
+<pre><code class="java language-java">private void BtnRencanaKontrolBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        if(TNoRw.getText().trim().equals(&amp;quot;&amp;quot;)){
+            JOptionPane.showMessageDialog(null,&amp;quot;Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!&amp;quot;);
+            TCari.requestFocus();
+        }else{
+                try {
+                    pskasir = koneksi.prepareStatement(&amp;quot;select no_sep,no_kartu,tanggal_lahir,jkel,nmdiagnosaawal from bridging_sep where no_rawat=?&amp;quot;);
+                    try {
+                        pskasir.setString(1,TNoRw.getText());
+                        rskasir = pskasir.executeQuery();
+                        if(rskasir.next()){
+                            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                            BPJSSuratKontrol form=new BPJSSuratKontrol(null,false);
+                            form.setNoRm(TNoRw.getText(),rskasir.getString(&amp;quot;no_sep&amp;quot;),rskasir.getString(&amp;quot;no_kartu&amp;quot;),TNoRw.getText(),TPasien.getText(),rskasir.getString(&amp;quot;tanggal_lahir&amp;quot;),rskasir.getString(&amp;quot;jkel&amp;quot;),rskasir.getString(&amp;quot;nmdiagnosaawal&amp;quot;));
+                            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                            form.setLocationRelativeTo(internalFrame1);
+                            form.setVisible(true);
+                            this.setCursor(Cursor.getDefaultCursor());
+                        }else{
+                            JOptionPane.showMessageDialog(null,&amp;quot;Pasien tersebut belum terbit SEP, silahkan hubungi bagian terkait..!!&amp;quot;);
+                            TCari.requestFocus();
+                        }
+                    } catch (Exception e) {
+                        System.out.println(&amp;quot;Notif : &amp;quot;+e);
+                    } finally{
+                        if(rskasir!=null){
+                            rskasir.close();
+                        }
+                        if(pskasir!=null){
+                            pskasir.close();
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(&amp;quot;Notif : &amp;quot;+e);
+                }
+        }
+    }
+</code></pre></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+                                                                                                        
+                 <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h4>Tambah modul resep obat template</h4>
+                    <div class="description">
+                        <p class="text"><p>struktur database:</p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed616a6a8c09bda5b84c4d/download/image.png" alt="image.png" /></p>
+
+<p>penyesuaian proses penyimpanan di modul DlgPeresepanDokter.java</p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed624dc509f08fddd56ce2/download/image.png" alt="image.png" /></p>
+
+<p>penambahan button template resep di modul rawat jalan:</p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed62cbfac00c1a58b5d124/download/image.png" alt="image.png" /></p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed62e82d57e0f5d7ebb8b5/download/image.png" alt="image.png" /></p>
+
+<p>&#8204;</p>
+
+<p>penambahan modul template resep2:</p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed634b1300c6f1fca2a592/download/image.png" alt="image.png" /></p>
+
+<p>preview modul template resep, muncul template hanya pada dokter yang memeriksa. untuk dokter lain tidak dapat copy resep dari dokter tersebut.</p>
+
+<p><img src="https://trello.com/1/cards/64ed61605381149583e7c213/attachments/64ed6382e57763533cd6922d/download/image.png" alt="image.png" /></p></p>
+                                            </div>
+                </div>
+            </div>
+        </div>
+              
+</div>
+</body>
+</html>

@@ -204,10 +204,29 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         setSize(885,674);
 
         tabModekasir=new DefaultTableModel(null,new String[]{
-            "Kode Dokter","Dokter Dituju","No.RM","Pasien",
-            "Poliklinik","Penanggung Jawab","Alamat P.J.","Hubungan P.J.",
-            "Biaya Reg","Jenis Bayar","Status","No.Rawat","Tanggal",
-            "Jam","No.Reg","Status Bayar","Stts Poli","Kd PJ","Kd Poli","No.Telp Pasien","Diagnosa"}){
+            "Kode Dokter",
+            "Dokter Dituju",
+            "No.RM",
+            "Pasien",
+            "Poliklinik",
+            "Kehadiran",
+            "SEP",
+            "Penanggung Jawab",
+            "Alamat P.J.",
+            "Hubungan P.J.",
+            "Biaya Reg",
+            "Jenis Bayar",
+            "Status",
+            "No.Rawat",
+            "Tanggal",
+            "Jam",
+            "No.Reg",
+            "Status Bayar",
+            "Stts Poli",
+            "Kd PJ",
+            "Kd Poli",
+            "No.Telp Pasien",
+            "Diagnosa"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
         tbKasirRalan.setModel(tabModekasir);
@@ -215,55 +234,59 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         tbKasirRalan.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbKasirRalan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 21; i++) {
+        for (i = 0; i < 22; i++) {
             TableColumn column = tbKasirRalan.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(70); //1
             }else if(i==1){
-                column.setPreferredWidth(180);
+                column.setPreferredWidth(180); //2
             }else if(i==2){
-                column.setPreferredWidth(65);
+                column.setPreferredWidth(65); //3
             }else if(i==3){
-                column.setPreferredWidth(170);
+                column.setPreferredWidth(170); //4
             }else if(i==4){
-                column.setPreferredWidth(140);
+                column.setPreferredWidth(170); //5
             }else if(i==5){
-                column.setPreferredWidth(130);
+                column.setPreferredWidth(140); //6
             }else if(i==6){
-                column.setPreferredWidth(160);
+                column.setPreferredWidth(140); //7
             }else if(i==7){
-                column.setPreferredWidth(80);
+                column.setPreferredWidth(130); //8
             }else if(i==8){
-                column.setPreferredWidth(60);
+                column.setPreferredWidth(160); //9
             }else if(i==9){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(80); //10
             }else if(i==10){
-                column.setPreferredWidth(75);
+                column.setPreferredWidth(60); //11
             }else if(i==11){
-                column.setPreferredWidth(105);
+                column.setPreferredWidth(100); //12
             }else if(i==12){
-                column.setPreferredWidth(65);
+                column.setPreferredWidth(75); //13
             }else if(i==13){
-                column.setPreferredWidth(55);
+                column.setPreferredWidth(105); //14
             }else if(i==14){
-                column.setPreferredWidth(47);
+                column.setPreferredWidth(65); //15
             }else if(i==15){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(55); //16
             }else if(i==16){
-                column.setPreferredWidth(50);
+                column.setPreferredWidth(47); //17
             }else if(i==17){
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setPreferredWidth(70); //18
             }else if(i==18){
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setPreferredWidth(50); //19
             }else if(i==19){
-                column.setPreferredWidth(95);
+                column.setMinWidth(0);
+                column.setMaxWidth(0); //20
+            }else if(i==20){
+                column.setMinWidth(0);
+                column.setMaxWidth(0); //21
+            }else if(i==21){
+                column.setPreferredWidth(95); //22
             }
-            else if(i==20){
+            else if(i==22){
                 //column.setPreferredWidth(95);
                 column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setMaxWidth(0); //23
             }
         }
         try {
@@ -277,9 +300,24 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         }
         
         tabModekasir2=new DefaultTableModel(null,new String[]{
-            "Kd.Dokter","Dokter Rujukan","Nomer RM","Pasien",
-            "Poliklinik Rujukan","Penanggung Jawab","Alamat P.J.","Hubungan P.J.",
-            "Jenis Bayar","Status","No.Rawat","Tanggal","Jam","Kode Poli","Kode PJ","No.Telp Pasien"}){
+            "Kd.Dokter",
+            "Dokter Rujukan",
+            "Nomer RM",
+            "Pasien",
+            "Poliklinik Rujukan",
+            "Kehadiran",
+            "SEP",
+            "Penanggung Jawab",
+            "Alamat P.J.",
+            "Hubungan P.J.",
+            "Jenis Bayar",
+            "Status",
+            "No.Rawat",
+            "Tanggal",
+            "Jam",
+            "Kode Poli",
+            "Kode PJ",
+            "No.Telp Pasien"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
         tbKasirRalan2.setModel(tabModekasir2);
@@ -287,42 +325,46 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         tbKasirRalan2.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbKasirRalan2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 16; i++) {
+        for (i = 0; i < 17; i++) {
             TableColumn column = tbKasirRalan2.getColumnModel().getColumn(i);
             if(i==0){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(70);  //1
             }else if(i==1){
-                column.setPreferredWidth(180);
+                column.setPreferredWidth(180); //2
             }else if(i==2){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(70); //3
             }else if(i==3){
-                column.setPreferredWidth(180);
+                column.setPreferredWidth(180); //4
             }else if(i==4){
-                column.setPreferredWidth(140);
+                column.setPreferredWidth(140); //5
             }else if(i==5){
-                column.setPreferredWidth(140);
+                column.setPreferredWidth(140); //6
             }else if(i==6){
-                column.setPreferredWidth(180);
+                column.setPreferredWidth(140); //7
             }else if(i==7){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(140); //8
             }else if(i==8){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(180); //9
             }else if(i==9){
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(90); //10
             }else if(i==10){
-                column.setPreferredWidth(105);
+                column.setPreferredWidth(100); //11
             }else if(i==11){
-                column.setPreferredWidth(65);
+                column.setPreferredWidth(70); //12
             }else if(i==12){
-                column.setPreferredWidth(55);
+                column.setPreferredWidth(105); //13
             }else if(i==13){
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setPreferredWidth(65); //14
             }else if(i==14){
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setPreferredWidth(55); //15
             }else if(i==15){
-                column.setPreferredWidth(110);
+                column.setMinWidth(0);
+                column.setMaxWidth(0); //16
+            }else if(i==16){
+                column.setMinWidth(0);
+                column.setMaxWidth(0); //17
+            }else if(i==17){
+                column.setPreferredWidth(110); //18
             }
         }
         tbKasirRalan2.setDefaultRenderer(Object.class, new WarnaTable());
@@ -13458,12 +13500,53 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 
                 rskasir=pskasir.executeQuery();
                 while(rskasir.next()){
+                    String query_kehadiran = "SELECT k.status_kehadiran FROM kehadiran_pasien_bpjs k WHERE k.no_rawat = '"+rskasir.getString(2)+"' AND k.no_rm = '"+rskasir.getString(7)+"'";
+                    System.out.println("query_kehadiran: "+query_kehadiran);
+                    String kehadiran = Sequel.cariIsi(query_kehadiran);
+                    String ket_hadir = "";
+                    switch (kehadiran) {
+                        case "hadir":
+                            ket_hadir = "Hadir";
+                            break;
+                        case "belum_hadir":
+                            ket_hadir = "Belum Hadir";
+                            break;
+                        default:
+                            ket_hadir = "-";
+                    }
+//                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rskasir.getString(2)+"' AND k.no_rm = '"+rskasir.getString(7)+"'");
+                    String query_sep = "SELECT b.no_sep FROM bridging_sep b WHERE b.no_rawat = '"+rskasir.getString(2)+"'  AND b.nomr = '"+rskasir.getString(7)+"'";
+                    String sep = Sequel.cariIsi(query_sep);
+                    String ket_sep = "";
+                    if(sep == null){
+                        ket_sep = "-";
+                    }else{
+                        ket_sep = sep;
+                    }
                     tabModekasir.addRow(new String[] {
-                        rskasir.getString(5),rskasir.getString(6),rskasir.getString(7),rskasir.getString(8)+" ("+rskasir.getString("umur")+")",
-                        rskasir.getString(9),rskasir.getString(10),rskasir.getString(11),rskasir.getString(12),Valid.SetAngka(rskasir.getDouble(13)),
-                        rskasir.getString("png_jawab"),rskasir.getString(14),rskasir.getString("no_rawat"),rskasir.getString("tgl_registrasi"),
-                        rskasir.getString("jam_reg"),rskasir.getString(1),rskasir.getString("status_bayar"),rskasir.getString("status_poli"),
-                        rskasir.getString("kd_pj"),rskasir.getString("kd_poli"),rskasir.getString("no_tlp"),rskasir.getString("kd_penyakit")
+                        rskasir.getString(5),
+                        rskasir.getString(6),
+                        rskasir.getString(7),
+                        rskasir.getString(8)+" ("+rskasir.getString("umur")+")",
+                        rskasir.getString(9),
+                        ket_hadir,
+                        ket_sep,
+                        rskasir.getString(10),
+                        rskasir.getString(11),
+                        rskasir.getString(12),
+                        Valid.SetAngka(rskasir.getDouble(13)),
+                        rskasir.getString("png_jawab"),
+                        rskasir.getString(14),
+                        rskasir.getString("no_rawat"),
+                        rskasir.getString("tgl_registrasi"),
+                        rskasir.getString("jam_reg"),
+                        rskasir.getString(1),
+                        rskasir.getString("status_bayar"),
+                        rskasir.getString("status_poli"),
+                        rskasir.getString("kd_pj"),
+                        rskasir.getString("kd_poli"),
+                        rskasir.getString("no_tlp"),
+                        rskasir.getString("kd_penyakit")
                     });
                 }                
             } catch(Exception e){
@@ -13521,12 +13604,46 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 }
                 rskasir=pskasir.executeQuery();
                 while(rskasir.next()){
+                    String kehadiran = Sequel.cariIsi("SELECT k.status_kehadiran FROM kehadiran_pasien_bpjs k WHERE k.no_rawat = '"+rskasir.getString(1)+"' AND k.no_rm = '"+rskasir.getString(6)+"'");
+                    String ket_hadir = "";
+                    switch (kehadiran) {
+                        case "hadir":
+                            ket_hadir = "Hadir";
+                            break;
+                        case "belum_hadir":
+                            ket_hadir = "Belum Hadir";
+                            break;
+                        default:
+                            ket_hadir = "-";
+                    }
+//                    String sep = Sequel.cariIsi("SELECT b.no_sep FROM kehadiran_pasien_bpjs k LEFT JOIN bridging_sep b ON k.no_rawat = b.no_rawat WHERE k.no_rawat = '"+rskasir.getString(1)+"' AND k.no_rm = '"+rskasir.getString(6)+"'");
+                    String query_sep = "SELECT b.no_sep FROM bridging_sep b WHERE b.no_rawat = '"+rskasir.getString(1)+"'  AND b.nomr = '"+rskasir.getString(6)+"'";
+                    String sep = Sequel.cariIsi(query_sep);
+                    String ket_sep = "";
+                    if(sep == null){
+                        ket_sep = "-";
+                    }else{
+                        ket_sep = sep;
+                    }
                     tabModekasir2.addRow(new String[] {
-                        rskasir.getString("kd_dokter"),rskasir.getString("nm_dokter"),
-                        rskasir.getString("no_rkm_medis"),rskasir.getString("nm_pasien")+" ("+rskasir.getString("umur")+")",
-                        rskasir.getString("nm_poli"),rskasir.getString("p_jawab"),rskasir.getString("almt_pj"),rskasir.getString("hubunganpj"),
-                        rskasir.getString("png_jawab"),rskasir.getString("stts"),rskasir.getString("no_rawat"),rskasir.getString("tgl_registrasi"),
-                        rskasir.getString("jam_reg"),rskasir.getString("kd_poli"),rskasir.getString("kd_pj"),rskasir.getString("no_tlp")
+                        rskasir.getString("kd_dokter"),
+                        rskasir.getString("nm_dokter"),
+                        rskasir.getString("no_rkm_medis"),
+                        rskasir.getString("nm_pasien")+" ("+rskasir.getString("umur")+")",
+                        rskasir.getString("nm_poli"),
+                        ket_hadir,
+                        ket_sep,
+                        rskasir.getString("p_jawab"),
+                        rskasir.getString("almt_pj"),
+                        rskasir.getString("hubunganpj"),
+                        rskasir.getString("png_jawab"),
+                        rskasir.getString("stts"),
+                        rskasir.getString("no_rawat"),
+                        rskasir.getString("tgl_registrasi"),
+                        rskasir.getString("jam_reg"),
+                        rskasir.getString("kd_poli"),
+                        rskasir.getString("kd_pj"),
+                        rskasir.getString("no_tlp")
                     });
                 }                
             } catch(Exception e){

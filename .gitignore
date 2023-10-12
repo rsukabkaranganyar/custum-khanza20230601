@@ -1,10 +1,10 @@
 build/*
 nbproject/*
-setting/database_production.xml
-setting/database.ini
-setting/database.xml
-setting/logo.jpg
-setting/modem.xml
-setting/wallpaper.jpg
+setting/*
 dist/*
-nbproject/private/private.xml
+lib/*
+KhanzaHMSAnjungan/build/*
+KhanzaHMSAnjungan/dist/*
+KhanzaHMSAnjungan/nbproject/private/*
+KhanzaHMSAnjungan/setting/*
+KhanzaHMSAnjungan/nbproject/*
