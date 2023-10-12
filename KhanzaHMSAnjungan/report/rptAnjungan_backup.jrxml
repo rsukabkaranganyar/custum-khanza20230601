@@ -29,14 +29,21 @@
 	</field>
 	<field name="nm_poli" class="java.lang.String"/>
 	<field name="tgl_registrasi" class="java.sql.Date"/>
-	<field name="nm_dokter" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
 	<title>
 		<band height="61">
 			<textField pattern="">
-				<reportElement mode="Opaque" x="20" y="5" width="100" height="11" uuid="fc41c518-554d-461e-8b3f-30894b692a2e"/>
+				<reportElement mode="Transparent" x="23" y="5" width="100" height="11" uuid="446da730-2ccd-4926-8453-cd6936b3057e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_rkm_medis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement mode="Opaque" x="23" y="15" width="100" height="11" uuid="fc41c518-554d-461e-8b3f-30894b692a2e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -44,64 +51,52 @@
 				<textFieldExpression><![CDATA[$F{nm_pasien}+" ("+$F{jk}+")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement mode="Transparent" x="20" y="15" width="100" height="11" uuid="f1eed47b-9b8e-4fcc-a398-93b29325c285"/>
+				<reportElement mode="Transparent" x="23" y="25" width="100" height="11" uuid="f1eed47b-9b8e-4fcc-a398-93b29325c285"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Poli "+$F{nm_poli}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Poliklinik "+$F{nm_poli}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="20" y="37" width="100" height="11" uuid="2ec90801-ffdd-4b82-8cf0-e7f6995cb43a">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="23" y="34" width="100" height="22" uuid="2ec90801-ffdd-4b82-8cf0-e7f6995cb43a"/>
 				<textElement textAlignment="Center">
-					<font fontName="Tahoma" size="8" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["No Antrian: "+$F{no_reg}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement mode="Transparent" x="20" y="26" width="100" height="11" uuid="6e6c2069-1e12-4922-967d-e038c3364288"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Tahoma" size="8" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Dokter "+$F{nm_dokter}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="174" y="37" width="100" height="11" uuid="7070cdaf-73d0-45c7-92db-6b56da9de7b1">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Tahoma" size="8" isBold="true"/>
+					<font fontName="Tahoma" size="10" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["No Antrian: "+$F{no_reg}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement mode="Opaque" x="174" y="5" width="100" height="11" uuid="0108d309-c443-4ca1-b530-33c10e6f77d1"/>
+				<reportElement mode="Opaque" x="174" y="15" width="100" height="11" uuid="dbb6b95c-5ca6-48cf-bd5d-c68298bd92d9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nm_pasien}+" ("+$F{jk}+")"]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement mode="Transparent" x="174" y="15" width="100" height="11" uuid="69d2c760-60b5-4797-9e0f-e2329468351b"/>
+			<textField>
+				<reportElement x="174" y="34" width="100" height="22" uuid="27bc2125-6a36-4c9a-b6e2-61bf2c28921e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No Antrian: "+$F{no_reg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement mode="Transparent" x="174" y="5" width="100" height="11" uuid="1eccab33-65a5-4b46-862b-4a67db78fba8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Poli "+$F{nm_poli}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{no_rkm_medis}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement mode="Transparent" x="174" y="26" width="100" height="11" uuid="af216f97-ed0a-4f55-b8f7-e513323838a6"/>
+				<reportElement mode="Transparent" x="174" y="25" width="100" height="11" uuid="52254126-9831-4f05-b99a-f4c6cfa44dac"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Dokter "+$F{nm_dokter}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Poliklinik "+$F{nm_poli}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
