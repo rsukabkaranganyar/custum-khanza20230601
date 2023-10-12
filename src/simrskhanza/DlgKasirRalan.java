@@ -32,7 +32,10 @@ import inventory.DlgPeresepanDokter;
 import inventory.DlgPiutang;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -1023,6 +1026,9 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         TNoRMCari = new widget.TextBox();
         jLabel8 = new widget.Label();
         TPasienCari = new widget.TextBox();
+        jLabel9 = new widget.Label();
+        TNoSep = new widget.TextBox();
+        BtnPrint1 = new widget.Button();
 
         jPopupMenu1.setForeground(new java.awt.Color(50, 50, 50));
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
@@ -5876,7 +5882,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelBiasa2.setLayout(null);
 
         TglSakit1.setForeground(new java.awt.Color(50, 70, 50));
-        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-07-2023" }));
+        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-10-2023" }));
         TglSakit1.setDisplayFormat("dd-MM-yyyy");
         TglSakit1.setName("TglSakit1"); // NOI18N
         TglSakit1.setOpaque(false);
@@ -5923,7 +5929,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         jLabel32.setBounds(176, 10, 20, 23);
 
         TglSakit2.setForeground(new java.awt.Color(50, 70, 50));
-        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-07-2023" }));
+        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-10-2023" }));
         TglSakit2.setDisplayFormat("dd-MM-yyyy");
         TglSakit2.setName("TglSakit2"); // NOI18N
         TglSakit2.setOpaque(false);
@@ -6195,7 +6201,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         jLabel15.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass8.add(jLabel15);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-07-2023" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-10-2023" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -6208,7 +6214,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         jLabel17.setPreferredSize(new java.awt.Dimension(23, 23));
         panelGlass8.add(jLabel17);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-07-2023" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-10-2023" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -6395,6 +6401,35 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         TPasienCari.setName("TPasienCari"); // NOI18N
         TPasienCari.setPreferredSize(new java.awt.Dimension(250, 23));
         panelGlass9.add(TPasienCari);
+
+        jLabel9.setText("No SEP");
+        jLabel9.setName("jLabel9"); // NOI18N
+        jLabel9.setPreferredSize(new java.awt.Dimension(85, 23));
+        panelGlass9.add(jLabel9);
+
+        TNoSep.setEditable(false);
+        TNoSep.setHighlighter(null);
+        TNoSep.setName("TNoSep"); // NOI18N
+        TNoSep.setPreferredSize(new java.awt.Dimension(250, 23));
+        panelGlass9.add(TNoSep);
+
+        BtnPrint1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/editcopy.png"))); // NOI18N
+        BtnPrint1.setMnemonic('T');
+        BtnPrint1.setText("Copy SEP");
+        BtnPrint1.setToolTipText("Alt+T");
+        BtnPrint1.setName("BtnPrint1"); // NOI18N
+        BtnPrint1.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPrint1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPrint1ActionPerformed(evt);
+            }
+        });
+        BtnPrint1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnPrint1KeyPressed(evt);
+            }
+        });
+        panelGlass9.add(BtnPrint1);
 
         internalFrame1.add(panelGlass9, java.awt.BorderLayout.PAGE_START);
 
@@ -13039,6 +13074,17 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnLembarKeluarMasuk2ActionPerformed
 
+    private void BtnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint1ActionPerformed
+        String sepText = TNoSep.getText();
+        StringSelection stringSelectionObj = new StringSelection(sepText);
+        Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboardObj.setContents(stringSelectionObj, null);
+    }//GEN-LAST:event_BtnPrint1ActionPerformed
+
+    private void BtnPrint1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrint1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnPrint1KeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -13067,6 +13113,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Button BtnKeluar2;
     private widget.Button BtnKeluar4;
     private widget.Button BtnPrint;
+    private widget.Button BtnPrint1;
     private widget.Button BtnPrint2;
     private widget.Button BtnPrint5;
     private widget.Button BtnSeek3;
@@ -13356,6 +13403,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.TextBox TNoReg;
     private widget.TextBox TNoRw;
     private widget.TextBox TNoRwCari;
+    private widget.TextBox TNoSep;
     private widget.TextBox TPasienCari;
     private javax.swing.JTabbedPane TabRawat;
     private widget.TextBox Tanggal;
@@ -13402,6 +13450,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
+    private widget.Label jLabel9;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JPanel jPanel2;
@@ -13668,10 +13717,11 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             TNoRw.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString());
             Tanggal.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),12).toString());
             Jam.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),13).toString());
-            TNoRwCari.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString());
-            TNoReg.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),14).toString());
+            TNoRwCari.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),13).toString());
+            TNoReg.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),16).toString());
             TNoRMCari.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),2).toString());
             TPasienCari.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),3).toString());
+            TNoSep.setText(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),6).toString());
         }
     }
 
@@ -14337,7 +14387,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     
     private void getDatakasir2() {
         if(tbKasirRalan2.getSelectedRow()!= -1){
-            TNoRwCari.setText(tbKasirRalan2.getValueAt(tbKasirRalan2.getSelectedRow(),10).toString());
+            TNoRwCari.setText(tbKasirRalan2.getValueAt(tbKasirRalan2.getSelectedRow(),13).toString());
             TNoReg.setText("-");
             TNoRMCari.setText(tbKasirRalan2.getValueAt(tbKasirRalan2.getSelectedRow(),2).toString());
             TPasienCari.setText(tbKasirRalan2.getValueAt(tbKasirRalan2.getSelectedRow(),3).toString());
