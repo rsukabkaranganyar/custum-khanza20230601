@@ -393,9 +393,32 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         tbRawatDrPr.setDefaultRenderer(Object.class, new WarnaTable());
         
         tabModePemeriksaan=new DefaultTableModel(null,new Object[]{
-            "P","No.Rawat","No.R.M.","Nama Pasien","Tgl.Rawat","Jam","Suhu(C)","Tensi","Nadi(/menit)",
-            "Respirasi(/menit)","Tinggi(Cm)","Berat(Kg)","SpO2(%)","GCS(E,V,M)","Kesadaran","Subjek","Objek","Alergi",
-            "L.P.(Cm)","Plan","Asesmen","Instruksi","Evaluasi","NIP","Dokter/Paramedis","Profesi/Jabatan"}){
+            "P",
+            "No.Rawat",
+            "No.R.M.",
+            "Nama Pasien",
+            "Tgl.Rawat",
+            "Jam",
+            "Suhu(C)",
+            "Tensi",
+            "Nadi(/menit)",
+            "Respirasi(/menit)",
+            "Tinggi(Cm)",
+            "Berat(Kg)",
+            "SpO2(%)",
+            "GCS(E,V,M)",
+            "Kesadaran",
+            "Subjek",
+            "Objek",
+            "Alergi",
+            "L.P.(Cm)",
+            "Plan",
+            "Asesmen",
+            "Instruksi",
+            "Evaluasi",
+            "NIP",
+            "Dokter/Paramedis",
+            "Profesi/Jabatan"}){
              @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
                 if (colIndex==0) {
@@ -6991,9 +7014,10 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             if(Sequel.cariInteger("select count(kamar_inap.no_rawat) from kamar_inap where kamar_inap.no_rawat=?",TNoRw.getText())>0){
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
             }else {
-                if(Sequel.cariInteger("select count(*), (pemeriksaan_ralan.penilaian) from pemeriksaan_ralan where pemeriksaan_ralan.no_rawat=? and pemeriksaan_ralan.nip=? ",TNoRw.getText(),KdDok.getText())== 0){
-
-                JOptionPane.showMessageDialog(null,"Maaf, Dokter belum mengisi Asesment " + KdDok.getText());
+                String query_asesmen = "select count(*),(pemeriksaan_ralan.penilaian) from pemeriksaan_ralan where pemeriksaan_ralan.no_rawat='"+TNoRw.getText()+"' and pemeriksaan_ralan.nip='"+KdDok.getText()+"'";
+                System.out.println("query_asesmen: "+query_asesmen);
+                if(Sequel.cariInteger(query_asesmen)== 0){
+                    JOptionPane.showMessageDialog(null,"Maaf, Dokter belum mengisi Asesment " + KdDok.getText());
                     System.out.println("Notifikasi : "+KdDok.getText());
                     TCari.requestFocus();
                 }else{
@@ -9748,13 +9772,32 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 rs=ps4.executeQuery();
                 while(rs.next()){
                     tabModePemeriksaan.addRow(new Object[]{
-                        false,rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),
-                        rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),
-                        rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),
-                        rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),
-                        rs.getString(20),rs.getString(21),rs.getString(22),rs.getString(23),
-                        rs.getString(24),rs.getString(25)
+                        false,
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16),
+                        rs.getString(17),
+                        rs.getString(18),
+                        rs.getString(19),
+                        rs.getString(20),
+                        rs.getString(21),
+                        rs.getString(22),
+                        rs.getString(23),
+                        rs.getString(24),
+                        rs.getString(25)
                     });
                 }
             } catch (Exception e) {

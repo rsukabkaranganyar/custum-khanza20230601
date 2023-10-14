@@ -1087,10 +1087,13 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
 private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
         if(TNoRw.getText().trim().equals("")||TPasien.getText().trim().equals("")){
             Valid.textKosong(TNoRw,"pasien");
+            System.out.println("text kosong pasien");
         }else if(KdDokter.getText().trim().equals("")||NmDokter.getText().trim().equals("")){
             Valid.textKosong(KdDokter,"Dokter");
+            System.out.println("text kosong Dokter");
         }else if(NoResep.getText().trim().equals("")){
             Valid.textKosong(NoResep,"No.Resep");
+            System.out.println("text kosong Resep");
         }else if(ttl<=0){
             JOptionPane.showMessageDialog(null,"Maaf, silahkan masukkan terlebih dahulu obat yang mau diberikan...!!!");
             TCari.requestFocus();
@@ -1106,6 +1109,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),status,"0000-00-00","00:00:00",txtJadikanTemplateResep.getText()
                         })==true){
                             simpandata();
+                            System.out.println("if pertama");
                     }else{
                         emptTeksobat();
                         if(Sequel.menyimpantf2("resep_obat","?,?,?,?,?,?,?,?,?,?,?","Nomer Resep",11,new String[]{
@@ -1113,6 +1117,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),status,"0000-00-00","00:00:00",txtJadikanTemplateResep.getText()
                             })==true){
                                 simpandata();
+                                System.out.println("if kedua");
                         }else{
                             emptTeksobat();
                             if(Sequel.menyimpantf2("resep_obat","?,?,?,?,?,?,?,?,?,?,?","Nomer Resep",11,new String[]{
@@ -1120,9 +1125,11 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),status,"0000-00-00","00:00:00",txtJadikanTemplateResep.getText()
                                 })==true){
                                     simpandata();
+                                    System.out.println("if ketiga");
                             }else{
                                 emptTeksobat();
                                 sukses=false;
+                                System.out.println("if keempat");
                             }
                         }
                     }
