@@ -7181,6 +7181,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 DlgCopyResep daftar=new DlgCopyResep(null,false);
                 daftar.isCek();
+                System.out.println("TNoRw: "+TNoRw.getText());
+                System.out.println("KdDok: "+KdDok.getText());
+                System.out.println("kd_pj: "+kd_pj);
                 daftar.setRM(TNoRw.getText(),TNoRM.getText(),KdDok.getText(),kd_pj,"ralan");
                 daftar.tampil();
                 daftar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
